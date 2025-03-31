@@ -10,7 +10,30 @@ use Illuminate\Validation\Rule;
 
 class feria_emprendimiento_controller extends Controller
 {
-    public function getAll()
+
+    /**
+    * @OA\Get(
+    *     path="/api/feria_emprendimiento",
+    *     summary="Obtener lista de Ferias_emprendimiento",
+    *     tags={"feria emprendimiento"},
+    *     @OA\Response(
+    *         response=200,
+    *         description="Lista de Ferias-emprendimiento",
+    *         @OA\JsonContent(
+    *          type="object",
+    *             @OA\Property(property="feria_emprendimiento", type="array",
+    *                 @OA\Items(type="object",
+    *                     @OA\Property(property="id", type="integer", example=1),
+    *                     @OA\Property(property="id_feria", type="integer", example=1),
+    *                     @OA\Property(property="id_emprendimiento", type="integer", example=1)
+    *                 )
+    *             ),
+    *             @OA\Property(property="status", type="integer", example=200)
+    *         )
+    *     )
+    * )
+    */
+    public function index()
     {
         $feria_emprendimiento = Feria_emprendimiento::all();
 
@@ -22,7 +45,43 @@ class feria_emprendimiento_controller extends Controller
         return response()->json($data, 200);
     }
 
-    public function getId($id)
+    /**
+    * @OA\Get(
+    *     path="/api/feria_emprendimiento/{id}",
+    *     summary="Obtener Feria-emprendimiento por ID",
+    *     tags={"feria emprendimiento"},
+    *     @OA\Parameter(
+    *         name="id",
+    *         in="path",
+    *         required=true,
+    *         description="ID de la Feria-emprendimiento",
+    *         @OA\Schema(type="integer")
+    *     ),
+    *     @OA\Response(
+    *         response=200,
+    *         description="Feria-emprendimiento encontrada",
+    *         @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(property="Feria-emprendimiento", type="object",
+    *                     @OA\Property(property="id", type="integer", example=1),
+    *                     @OA\Property(property="id_feria", type="integer", example=1),
+    *                     @OA\Property(property="id_emprendimiento", type="integer", example=1)
+    *             ),
+    *             @OA\Property(property="status", type="integer", example=200)
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=404,
+    *         description="Feria-emprendimiento no encontrada",
+    *         @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(property="message", type="string", example="Feria-emprendimiento no encontrado"),
+    *             @OA\Property(property="status", type="integer", example=404)
+    *         )
+    *     )
+    * )
+    */
+    public function show($id)
     {
         $feria_emprendimiento = Feria_emprendimiento::find($id);
 
@@ -43,7 +102,58 @@ class feria_emprendimiento_controller extends Controller
         return response()->json($data, 200);
     }
 
-    public function add(Request $request)
+    /**
+    * @OA\Post(
+    *     path="/api/feria_emprendimiento",
+    *     summary="Crear Feria-emprendimiento",
+    *     tags={"feria emprendimiento"},
+    *     @OA\RequestBody(
+    *         required=true,
+    *         @OA\JsonContent(
+    *             required={"id_feria", "id_emprendimiento"},
+    *             @OA\Property(property="id_feria", type="integer", example=1),
+    *             @OA\Property(property="id_emprendimiento", type="integer", example=1)
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=201,
+    *         description="Feria-emprendimiento creado correctamente",
+    *         @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(property="Feria-emprendimiento", type="object",
+    *                     @OA\Property(property="id_feria", type="integer", example=1),
+    *                     @OA\Property(property="id_emprendimiento", type="integer", example=1),
+    *                     @OA\Property(property="id", type="integer", example=1)
+    *             ),
+    *             @OA\Property(property="status", type="integer", example=201)
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=400,
+    *         description="Error en la validación de datos",
+    *         @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(property="message", type="string", example="Error en la base de datos"),
+    *             @OA\Property(property="Error", type="object",
+    *                 @OA\Property(property="nombre", type="array",
+    *                     @OA\Items(type="string", example="El campo nombre ya ha sido utilizado")
+    *                 )
+    *             ),
+    *             @OA\Property(property="status", type="integer", example=400)
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=500,
+    *         description="Error interno del servidor",
+    *         @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(property="message", type="string", example="Error al crear el Feria-emprendimiento"),
+    *             @OA\Property(property="status", type="integer", example=500)
+    *         )
+    *     )
+    * )
+    */
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'id_feria' => [
@@ -88,7 +198,39 @@ class feria_emprendimiento_controller extends Controller
         return response()->json($data, 201);
     }
 
-    public function delete($id)
+    /**
+    * @OA\Delete(
+    *     path="/api/feria_emprendimiento/{id}",
+    *     summary="Eliminar Feria-emprendimiento",
+    *     tags={"feria emprendimiento"},
+    *     @OA\Parameter(
+    *         name="id",
+    *         in="path",
+    *         required=true,
+    *         description="ID de la Feria-emprendimiento",
+    *         @OA\Schema(type="integer")
+    *     ),
+    *     @OA\Response(
+    *         response=200,
+    *         description="Feria-emprendimiento eliminado correctamente",
+    *         @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(property="feria", type="string", example="eliminada"),
+    *             @OA\Property(property="status", type="integer", example=200)
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=404,
+    *         description="Feria-emprendimiento no encontrado",
+    *         @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(property="message", type="string", example="Feria-emprendimiento no encontrado"),
+    *             @OA\Property(property="status", type="integer", example=404)
+    *         )
+    *     )
+    * )
+    */
+    public function destroy($id)
     {
         $feria_emprendimiento = Feria_emprendimiento::find($id);
 
@@ -111,6 +253,74 @@ class feria_emprendimiento_controller extends Controller
         return response()->json($data, 200);
     }
 
+    /**
+    * @OA\Put(
+    *     path="/api/feria_emprendimiento/{id}",
+    *     summary="Actualizar Feria-emprendimiento",
+    *     tags={"feria emprendimiento"},
+    *     @OA\Parameter(
+    *         name="id",
+    *         in="path",
+    *         required=true,
+    *         description="ID de la Feria-emprendimiento",
+    *         @OA\Schema(type="integer")
+    *     ),
+    *     @OA\RequestBody(
+    *             required=true,
+    *             @OA\JsonContent(
+    *             required={"id_feria", "id_emprendimiento"},
+    *             @OA\Property(property="id_feria", type="integer", example=1),
+    *             @OA\Property(property="id_emprendimiento", type="integer", example=1)
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=200,
+    *         description="Feria-emprendimiento actualizado correctamente",
+    *         @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(property="message", type="string", example="Feria-emprendimiento actualizado correctamente"),
+    *             @OA\Property(property="Feria-emprendimiento", type="object",
+    *                     @OA\Property(property="id_feria", type="integer", example=1),
+    *                     @OA\Property(property="id_emprendimiento", type="integer", example=1),
+    *                     @OA\Property(property="id", type="integer", example=1)
+    *             ),
+    *             @OA\Property(property="status", type="integer", example=200)
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=404,
+    *         description="Feria-emprendimiento no encontrado",
+    *         @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(property="message", type="string", example="Feria-emprendimiento no encontrado"),
+    *             @OA\Property(property="status", type="integer", example=404)
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=400,
+    *         description="Error en la validación de datos",
+    *         @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(property="message", type="string", example="Error en la base de datos"),
+    *             @OA\Property(property="Error", type="object",
+    *                 @OA\Property(property="nombre", type="array",
+    *                     @OA\Items(type="string", example="El campo nombre ya ha sido utilizado")
+    *                 )
+    *             ),
+    *             @OA\Property(property="status", type="integer", example=400)
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=500,
+    *         description="Error interno del servidor",
+    *         @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(property="message", type="string", example="error al actualizar el Feria-emprendimiento"),
+    *             @OA\Property(property="status", type="integer", example=500)
+    *         )
+    *     )
+    * )
+    */
     public function update(Request $request, $id)
     {
         $feria_emprendimiento = Feria_emprendimiento::find($id);
@@ -167,6 +377,72 @@ class feria_emprendimiento_controller extends Controller
         return response()->json($data, 200);
     }
 
+    /**
+    * @OA\Patch(
+    *     path="/api/feria_emprendimiento/{id}",
+    *     summary="Actualizar parcialmente Feria-emprendimiento",
+    *     tags={"feria emprendimiento"},
+    *     @OA\Parameter(
+    *         name="id",
+    *         in="path",
+    *         required=true,
+    *         description="ID de la Feria-emprendimiento",
+    *         @OA\Schema(type="integer")
+    *     ),
+    *     @OA\RequestBody(
+    *         required=true,
+    *         @OA\JsonContent(
+    *             @OA\Property(property="id_feria", type="integer", example=1),
+    *             @OA\Property(property="id_emprendimiento", type="integer", example=1)
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=200,
+    *         description="Feria-emprendimiento actualizado correctamente",
+    *         @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(property="message", type="string", example="Feria-emprendimiento actualizado correctamente"),
+    *             @OA\Property(property="Feria-emprendimiento", type="object",
+    *                     @OA\Property(property="id_feria", type="integer", example=1),
+    *                     @OA\Property(property="id_emprendimiento", type="integer", example=1)
+    *             ),
+    *             @OA\Property(property="status", type="integer", example=200)
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=404,
+    *         description="Feria-emprendimiento no encontrado",
+    *         @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(property="message", type="string", example="Feria-emprendimiento no encontrado"),
+    *             @OA\Property(property="status", type="integer", example=404)
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=400,
+    *         description="Error en la validación de datos",
+    *         @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(property="message", type="string", example="Error en la base de datos"),
+    *             @OA\Property(property="Error", type="object",
+    *                 @OA\Property(property="nombre", type="array",
+    *                     @OA\Items(type="string", example="El campo nombre ya ha sido utilizado")
+    *                 )
+    *             ),
+    *             @OA\Property(property="status", type="integer", example=400)
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=500,
+    *         description="Error interno del servidor",
+    *         @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(property="message", type="string", example="error al actualizar el Feria-emprendimiento"),
+    *             @OA\Property(property="status", type="integer", example=500)
+    *         )
+    *     )
+    * )
+    */
     public function updatePartial(Request $request, $id)
     {
         $feria_emprendimiento = Feria_emprendimiento::find($id);

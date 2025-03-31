@@ -1,0 +1,3684 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Categorías de Productos",
+        "description": "API para gestionar categorías de productos",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/categoria_productos": {
+            "get": {
+                "tags": [
+                    "Categorías de Productos"
+                ],
+                "summary": "Obtener todas las categorías de productos",
+                "operationId": "0da6d6186f1ec1dc2eeb77a96151ce96",
+                "responses": {
+                    "200": {
+                        "description": "Lista de categorías de productos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "categoria de productos": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id_cat": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "estado": {
+                                                        "type": "char",
+                                                        "example": "AC"
+                                                    },
+                                                    "descripcion": {
+                                                        "type": "text",
+                                                        "example": "Productos electrónicos para el hogar"
+                                                    },
+                                                    "nombre": {
+                                                        "type": "string",
+                                                        "example": "Electrodomésticos"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Categorías de Productos"
+                ],
+                "summary": "Crear una nueva categoría de producto",
+                "operationId": "5a6809a6fe2d9e01d62401d0bc8dab1b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "estado",
+                                    "nombre"
+                                ],
+                                "properties": {
+                                    "estado": {
+                                        "type": "char",
+                                        "enum": [
+                                            "AC",
+                                            "IN"
+                                        ],
+                                        "example": "AC"
+                                    },
+                                    "descripcion": {
+                                        "type": "text",
+                                        "example": "Productos electrónicos para el hogar"
+                                    },
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Electrodomésticos"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Categoría de producto creada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Categoria producto": {
+                                            "properties": {
+                                                "estado": {
+                                                    "type": "char",
+                                                    "example": "AC"
+                                                },
+                                                "descripcion": {
+                                                    "type": "text",
+                                                    "example": "Productos electrónicos para el hogar"
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Electrodomésticos"
+                                                },
+                                                "id_cat": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la base de datos"
+                                        },
+                                        "Error": {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre ya ha sido utilizado"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al crear la categoria de producto",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al crear la categoria de producto"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/categoria_productos/{nombre}": {
+            "get": {
+                "tags": [
+                    "Categorías de Productos"
+                ],
+                "summary": "Obtener una categoría de producto por nombre",
+                "operationId": "2c19bf84d67a3ab2b0a6eb1c04612871",
+                "parameters": [
+                    {
+                        "name": "nombre",
+                        "in": "path",
+                        "description": "Nombre de la categoría de producto",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categoría de producto encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Categoria de producto": {
+                                            "properties": {
+                                                "id_cat": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "estado": {
+                                                    "type": "char",
+                                                    "example": "AC"
+                                                },
+                                                "descripcion": {
+                                                    "type": "text",
+                                                    "example": "Productos electrónicos para el hogar"
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Electrodomésticos"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Categoría no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Categoria no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Categorías de Productos"
+                ],
+                "summary": "Actualizar una categoría de producto por nombre",
+                "operationId": "599b4335f4762c19d286214a22199994",
+                "parameters": [
+                    {
+                        "name": "nombre",
+                        "in": "path",
+                        "description": "Nombre de la categoría de producto",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "estado"
+                                ],
+                                "properties": {
+                                    "estado": {
+                                        "type": "char",
+                                        "enum": [
+                                            "AC",
+                                            "IN"
+                                        ],
+                                        "example": "AC"
+                                    },
+                                    "descripcion": {
+                                        "type": "text",
+                                        "example": "Productos electrónicos para el hogar"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Categoría actualizada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "categoria de producto actualizada"
+                                        },
+                                        "Categoria de producto": {
+                                            "properties": {
+                                                "id_cat": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "estado": {
+                                                    "type": "char",
+                                                    "example": "AC"
+                                                },
+                                                "descripcion": {
+                                                    "type": "text",
+                                                    "example": "Productos electrónicos para el hogar"
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Electrodomésticos"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Categoría no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Categoria no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la base de datos"
+                                        },
+                                        "Error": {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre ya ha sido utilizado"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Categorías de Productos"
+                ],
+                "summary": "Eliminar una categoría de producto por nombre",
+                "operationId": "24351d7976896d98fb8226432516ca04",
+                "parameters": [
+                    {
+                        "name": "nombre",
+                        "in": "path",
+                        "description": "Nombre de la categoría de producto",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categoría eliminada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Categoria de producto": {
+                                            "type": "string",
+                                            "example": "eliminada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Categoría no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Categoria no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Categorías de Productos"
+                ],
+                "summary": "Actualizar parcialmente una categoría de producto por nombre",
+                "operationId": "a8973b7d389b54ff7c35c0a2ca4edd5f",
+                "parameters": [
+                    {
+                        "name": "nombre",
+                        "in": "path",
+                        "description": "Nombre de la categoría de producto",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "estado": {
+                                        "type": "char",
+                                        "enum": [
+                                            "AC",
+                                            "IN"
+                                        ],
+                                        "example": "AC"
+                                    },
+                                    "descripcion": {
+                                        "type": "text",
+                                        "example": "Productos electrónicos para el hogar"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Categoría actualizada parcialmente correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "categoria de producto actualizada"
+                                        },
+                                        "Categoria de producto": {
+                                            "properties": {
+                                                "id_cat": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "estado": {
+                                                    "type": "char",
+                                                    "example": "AC"
+                                                },
+                                                "descripcion": {
+                                                    "type": "text",
+                                                    "example": "Productos electrónicos para el hogar"
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Electrodomésticos"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Categoría no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Categoria no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la base de datos"
+                                        },
+                                        "Error": {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre ya ha sido utilizado"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/emprendimiento": {
+            "get": {
+                "tags": [
+                    "Emprendimiento"
+                ],
+                "summary": "Listar todos los emprendimientos",
+                "operationId": "f2de8616a136462730cb79e18ae37421",
+                "responses": {
+                    "200": {
+                        "description": "Lista de emprendimientos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Emprendimiento": {
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "example": 200
+                                                }
+                                            },
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "id_cat": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "nombre": {
+                                                        "type": "string",
+                                                        "example": "Emprendimiento 1"
+                                                    },
+                                                    "marca": {
+                                                        "type": "string",
+                                                        "example": "Marca 1"
+                                                    },
+                                                    "descripcion": {
+                                                        "type": "string",
+                                                        "example": "Descripción del emprendimiento 1"
+                                                    },
+                                                    "estado": {
+                                                        "type": "string",
+                                                        "example": "A"
+                                                    },
+                                                    "id_usuario": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Emprendimiento"
+                ],
+                "summary": "Crear un nuevo emprendimiento",
+                "operationId": "4c9a26a7963dfa249d3f71387135a759",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "id_cat",
+                                    "estado",
+                                    "id_usuario"
+                                ],
+                                "properties": {
+                                    "id_cat": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Emprendimiento 1"
+                                    },
+                                    "marca": {
+                                        "type": "string",
+                                        "example": "Marca 1"
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "Descripción del emprendimiento 1"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "A"
+                                    },
+                                    "id_usuario": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Emprendimiento creado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Emprendimiento": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_cat": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Emprendimiento 1"
+                                                },
+                                                "marca": {
+                                                    "type": "string",
+                                                    "example": "Marca 1"
+                                                },
+                                                "descripcion": {
+                                                    "type": "string",
+                                                    "example": "Descripción del emprendimiento 1"
+                                                },
+                                                "estado": {
+                                                    "type": "string",
+                                                    "example": "A"
+                                                },
+                                                "id_usuario": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2023-10-01T00:00:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la base de datos"
+                                        },
+                                        "Error": {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre ya ha sido utilizado"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno del servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al crear el emprendimiento"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/emprendimiento/{nombre}": {
+            "get": {
+                "tags": [
+                    "Emprendimiento"
+                ],
+                "summary": "Obtener un emprendimiento por nombre",
+                "operationId": "fa5ab120218857996d81f247f411051f",
+                "parameters": [
+                    {
+                        "name": "nombre",
+                        "in": "path",
+                        "description": "Nombre del emprendimiento",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Emprendimiento encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Emprendimiento": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_cat": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Emprendimiento 1"
+                                                },
+                                                "marca": {
+                                                    "type": "string",
+                                                    "example": "Marca 1"
+                                                },
+                                                "descripcion": {
+                                                    "type": "string",
+                                                    "example": "Descripción del emprendimiento 1"
+                                                },
+                                                "estado": {
+                                                    "type": "string",
+                                                    "example": "A"
+                                                },
+                                                "id_usuario": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2023-10-01T00:00:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Emprendimiento no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Emprendimiento no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Emprendimiento"
+                ],
+                "summary": "Actualizar un emprendimiento por nombre",
+                "operationId": "602ec927dae6860e331f5cc9423cd8d8",
+                "parameters": [
+                    {
+                        "name": "nombre",
+                        "in": "path",
+                        "description": "Nombre del emprendimiento",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "estado"
+                                ],
+                                "properties": {
+                                    "id_cat": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Emprendimiento 1"
+                                    },
+                                    "marca": {
+                                        "type": "string",
+                                        "example": "Marca 1"
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "Descripción del emprendimiento 1"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "A"
+                                    },
+                                    "id_usuario": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Emprendimiento actualizado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Emprendimiento actualizado"
+                                        },
+                                        "Emprendimiento": {
+                                            "properties": {
+                                                "id_cat": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Emprendimiento 1"
+                                                },
+                                                "marca": {
+                                                    "type": "string",
+                                                    "example": "Marca 1"
+                                                },
+                                                "descripcion": {
+                                                    "type": "string",
+                                                    "example": "Descripción del emprendimiento 1"
+                                                },
+                                                "estado": {
+                                                    "type": "string",
+                                                    "example": "A"
+                                                },
+                                                "id_usuario": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2023-10-01T00:00:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Emprendimiento no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Emprendimiento no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la base de datos"
+                                        },
+                                        "Error": {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre ya ha sido utilizado"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno del servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al actualizar el emprendimiento"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Emprendimiento"
+                ],
+                "summary": "Eliminar un emprendimiento por nombre",
+                "operationId": "9fe8ce90382033acc446a5d2e2e24e0a",
+                "parameters": [
+                    {
+                        "name": "nombre",
+                        "in": "path",
+                        "description": "Nombre del emprendimiento",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Emprendimiento eliminado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Emprendimiento": {
+                                            "type": "string",
+                                            "example": "eliminada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Emprendimiento no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Emprendimiento no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Emprendimiento"
+                ],
+                "summary": "Actualizar parcialmente un emprendimiento por nombre",
+                "operationId": "13c028cdc9dc935cf18ccf1eb88fe325",
+                "parameters": [
+                    {
+                        "name": "nombre",
+                        "in": "path",
+                        "description": "Nombre del emprendimiento",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_cat": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Emprendimiento 1"
+                                    },
+                                    "marca": {
+                                        "type": "string",
+                                        "example": "Marca 1"
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "Descripción del emprendimiento 1"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "A"
+                                    },
+                                    "id_usuario": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Emprendimiento actualizado parcialmente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Emprendimiento actualizado parcialmente"
+                                        },
+                                        "Emprendimiento": {
+                                            "properties": {
+                                                "id_cat": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Emprendimiento 1"
+                                                },
+                                                "marca": {
+                                                    "type": "string",
+                                                    "example": "Marca 1"
+                                                },
+                                                "descripcion": {
+                                                    "type": "string",
+                                                    "example": "Descripción del emprendimiento 1"
+                                                },
+                                                "estado": {
+                                                    "type": "string",
+                                                    "example": "A"
+                                                },
+                                                "id_usuario": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2023-10-01T00:00:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Emprendimiento no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Emprendimiento no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la base de datos"
+                                        },
+                                        "Error": {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre ya ha sido utilizado"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno del servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al actualizar el emprendimiento"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/feria": {
+            "get": {
+                "tags": [
+                    "feria"
+                ],
+                "summary": "Obtener todas las ferias",
+                "operationId": "48dec37e599e174a61ffa2a13f212d85",
+                "responses": {
+                    "200": {
+                        "description": "Lista de ferias",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Ferias": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "nombre": {
+                                                        "type": "string",
+                                                        "example": "Feria de Tecnología"
+                                                    },
+                                                    "descripcion": {
+                                                        "type": "text",
+                                                        "example": "Feria de tecnología y ciencia"
+                                                    },
+                                                    "fecha_inicio": {
+                                                        "type": "data",
+                                                        "format": "date-time",
+                                                        "example": "2023-10-01"
+                                                    },
+                                                    "fecha_fin": {
+                                                        "type": "data",
+                                                        "format": "date-time",
+                                                        "example": "2023-10-05"
+                                                    },
+                                                    "modalidad": {
+                                                        "type": "string",
+                                                        "example": "virtual"
+                                                    },
+                                                    "localidad": {
+                                                        "type": "string",
+                                                        "example": "Lima"
+                                                    },
+                                                    "estado": {
+                                                        "type": "string",
+                                                        "example": "próxima"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "feria"
+                ],
+                "summary": "Crear una nueva feria",
+                "operationId": "19eb98df609349f1df0c05a468c60111",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "fecha_inicio",
+                                    "fecha_fin",
+                                    "modalidad",
+                                    "estado"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Feria de Tecnología"
+                                    },
+                                    "descripcion": {
+                                        "type": "text",
+                                        "example": "Feria de tecnología y ciencia"
+                                    },
+                                    "fecha_inicio": {
+                                        "type": "data",
+                                        "format": "date-time",
+                                        "example": "2023-10-01"
+                                    },
+                                    "fecha_fin": {
+                                        "type": "data",
+                                        "format": "date-time",
+                                        "example": "2023-10-05"
+                                    },
+                                    "modalidad": {
+                                        "type": "string",
+                                        "example": "virtual"
+                                    },
+                                    "localidad": {
+                                        "type": "string",
+                                        "example": "Lima"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "próxima"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Feria creada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Feria": {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Feria de Tecnología"
+                                                },
+                                                "descripcion": {
+                                                    "type": "text",
+                                                    "example": "Feria de tecnología y ciencia"
+                                                },
+                                                "fecha_inicio": {
+                                                    "type": "data",
+                                                    "format": "date-time",
+                                                    "example": "2023-10-01"
+                                                },
+                                                "fecha_fin": {
+                                                    "type": "data",
+                                                    "format": "date-time",
+                                                    "example": "2023-10-05"
+                                                },
+                                                "modalidad": {
+                                                    "type": "string",
+                                                    "example": "virtual"
+                                                },
+                                                "localidad": {
+                                                    "type": "string",
+                                                    "example": "Lima"
+                                                },
+                                                "estado": {
+                                                    "type": "string",
+                                                    "example": "próxima"
+                                                },
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la base de datos"
+                                        },
+                                        "Error": {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre ya ha sido utilizado"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al crear la feria",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al crear la feria"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/feria/{id}": {
+            "get": {
+                "tags": [
+                    "feria"
+                ],
+                "summary": "Obtener una feria por ID",
+                "operationId": "a87bea8ca797c73fe9429350a962d091",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la feria",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Feria encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "feria": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Feria de Tecnología"
+                                                },
+                                                "descripcion": {
+                                                    "type": "text",
+                                                    "example": "Feria de tecnología y ciencia"
+                                                },
+                                                "fecha_inicio": {
+                                                    "type": "data",
+                                                    "format": "date-time",
+                                                    "example": "2023-10-01"
+                                                },
+                                                "fecha_fin": {
+                                                    "type": "data",
+                                                    "format": "date-time",
+                                                    "example": "2023-10-05"
+                                                },
+                                                "modalidad": {
+                                                    "type": "string",
+                                                    "example": "virtual"
+                                                },
+                                                "localidad": {
+                                                    "type": "string",
+                                                    "example": "Lima"
+                                                },
+                                                "estado": {
+                                                    "type": "string",
+                                                    "example": "próxima"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Feria no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Feria no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "feria"
+                ],
+                "summary": "actualizar una feria por ID",
+                "operationId": "862ecbf9226221a92728e2baed4af9fd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la feria",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "fecha_inicio",
+                                    "fecha_fin",
+                                    "modalidad",
+                                    "estado"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Feria de Tecnología"
+                                    },
+                                    "descripcion": {
+                                        "type": "text",
+                                        "example": "Feria de tecnología y ciencia"
+                                    },
+                                    "fecha_inicio": {
+                                        "type": "data",
+                                        "format": "date-time",
+                                        "example": "2023-10-01"
+                                    },
+                                    "fecha_fin": {
+                                        "type": "data",
+                                        "format": "date-time",
+                                        "example": "2023-10-05"
+                                    },
+                                    "modalidad": {
+                                        "type": "string",
+                                        "example": "virtual"
+                                    },
+                                    "localidad": {
+                                        "type": "string",
+                                        "example": "Lima"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "próxima"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Feria actualizada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Feria actualizada correctamente"
+                                        },
+                                        "Feria": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Feria de Tecnología"
+                                                },
+                                                "descripcion": {
+                                                    "type": "text",
+                                                    "example": "Feria de tecnología y ciencia"
+                                                },
+                                                "fecha_inicio": {
+                                                    "type": "data",
+                                                    "format": "date-time",
+                                                    "example": "2023-10-01"
+                                                },
+                                                "fecha_fin": {
+                                                    "type": "data",
+                                                    "format": "date-time",
+                                                    "example": "2023-10-05"
+                                                },
+                                                "modalidad": {
+                                                    "type": "string",
+                                                    "example": "virtual"
+                                                },
+                                                "localidad": {
+                                                    "type": "string",
+                                                    "example": "Lima"
+                                                },
+                                                "estado": {
+                                                    "type": "string",
+                                                    "example": "próxima"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Feria no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Feria no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la base de datos"
+                                        },
+                                        "Error": {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre ya ha sido utilizado"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al actualizar la feria",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "error al actualizar la feria"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "feria"
+                ],
+                "summary": "Eliminar una feria por ID",
+                "operationId": "a3639dac046ab7c382a1ef4ae0182ae7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la feria",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Feria eliminada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "feria": {
+                                            "type": "string",
+                                            "example": "eliminada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Feria no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Feria no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "feria"
+                ],
+                "summary": "Actualizar parcialmente una feria por ID",
+                "operationId": "d3bf51489153cb7faf26067127c539f5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la feria",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Feria de Tecnología"
+                                    },
+                                    "descripcion": {
+                                        "type": "text",
+                                        "example": "Feria de tecnología y ciencia"
+                                    },
+                                    "fecha_inicio": {
+                                        "type": "data",
+                                        "format": "date-time",
+                                        "example": "2023-10-01"
+                                    },
+                                    "fecha_fin": {
+                                        "type": "data",
+                                        "format": "date-time",
+                                        "example": "2023-10-05"
+                                    },
+                                    "modalidad": {
+                                        "type": "string",
+                                        "example": "virtual"
+                                    },
+                                    "localidad": {
+                                        "type": "string",
+                                        "example": "Lima"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "próxima"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Feria actualizada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Feria actualizada correctamente"
+                                        },
+                                        "Feria": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Feria de Tecnología"
+                                                },
+                                                "descripcion": {
+                                                    "type": "text",
+                                                    "example": "Feria de tecnología y ciencia"
+                                                },
+                                                "fecha_inicio": {
+                                                    "type": "data",
+                                                    "format": "date-time",
+                                                    "example": "2023-10-01"
+                                                },
+                                                "fecha_fin": {
+                                                    "type": "data",
+                                                    "format": "date-time",
+                                                    "example": "2023-10-05"
+                                                },
+                                                "modalidad": {
+                                                    "type": "string",
+                                                    "example": "virtual"
+                                                },
+                                                "localidad": {
+                                                    "type": "string",
+                                                    "example": "Lima"
+                                                },
+                                                "estado": {
+                                                    "type": "string",
+                                                    "example": "próxima"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Feria no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Feria no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la base de datos"
+                                        },
+                                        "Error": {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre ya ha sido utilizado"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al actualizar la feria",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "error al actualizar la feria"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/feria_emprendimiento": {
+            "get": {
+                "tags": [
+                    "feria emprendimiento"
+                ],
+                "summary": "Obtener lista de Ferias_emprendimiento",
+                "operationId": "81849df907abc2f26995036dee553d58",
+                "responses": {
+                    "200": {
+                        "description": "Lista de Ferias-emprendimiento",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "feria_emprendimiento": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "id_feria": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "id_emprendimiento": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "feria emprendimiento"
+                ],
+                "summary": "Crear Feria-emprendimiento",
+                "operationId": "ca4f9b1c77c956b94056e8cf52966433",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_feria",
+                                    "id_emprendimiento"
+                                ],
+                                "properties": {
+                                    "id_feria": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_emprendimiento": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Feria-emprendimiento creado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Feria-emprendimiento": {
+                                            "properties": {
+                                                "id_feria": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_emprendimiento": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la base de datos"
+                                        },
+                                        "Error": {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre ya ha sido utilizado"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno del servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al crear el Feria-emprendimiento"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/feria_emprendimiento/{id}": {
+            "get": {
+                "tags": [
+                    "feria emprendimiento"
+                ],
+                "summary": "Obtener Feria-emprendimiento por ID",
+                "operationId": "b014ecb9f68b658cd3906602db4628f3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la Feria-emprendimiento",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Feria-emprendimiento encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Feria-emprendimiento": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_feria": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_emprendimiento": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Feria-emprendimiento no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Feria-emprendimiento no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "feria emprendimiento"
+                ],
+                "summary": "Actualizar Feria-emprendimiento",
+                "operationId": "28606d7f43f7f2806fc230422f63fde1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la Feria-emprendimiento",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_feria",
+                                    "id_emprendimiento"
+                                ],
+                                "properties": {
+                                    "id_feria": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_emprendimiento": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Feria-emprendimiento actualizado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Feria-emprendimiento actualizado correctamente"
+                                        },
+                                        "Feria-emprendimiento": {
+                                            "properties": {
+                                                "id_feria": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_emprendimiento": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Feria-emprendimiento no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Feria-emprendimiento no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la base de datos"
+                                        },
+                                        "Error": {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre ya ha sido utilizado"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno del servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "error al actualizar el Feria-emprendimiento"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "feria emprendimiento"
+                ],
+                "summary": "Eliminar Feria-emprendimiento",
+                "operationId": "ba2523605491d5ba0b23a9a7fb8bd7b8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la Feria-emprendimiento",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Feria-emprendimiento eliminado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "feria": {
+                                            "type": "string",
+                                            "example": "eliminada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Feria-emprendimiento no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Feria-emprendimiento no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "feria emprendimiento"
+                ],
+                "summary": "Actualizar parcialmente Feria-emprendimiento",
+                "operationId": "fd3bde0dce04ec6a1bbc0080b0ff33ba",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la Feria-emprendimiento",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_feria": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_emprendimiento": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Feria-emprendimiento actualizado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Feria-emprendimiento actualizado correctamente"
+                                        },
+                                        "Feria-emprendimiento": {
+                                            "properties": {
+                                                "id_feria": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_emprendimiento": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Feria-emprendimiento no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Feria-emprendimiento no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la base de datos"
+                                        },
+                                        "Error": {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre ya ha sido utilizado"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno del servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "error al actualizar el Feria-emprendimiento"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/producto": {
+            "get": {
+                "tags": [
+                    "Producto"
+                ],
+                "summary": "Obtener todos los productos",
+                "operationId": "74bcbaf0323e4d9cb016c09942d354d9",
+                "responses": {
+                    "200": {
+                        "description": "Lista de productos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "id_emprendimiento": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "nombre": {
+                                                        "type": "string",
+                                                        "example": "Producto 1"
+                                                    },
+                                                    "detalle": {
+                                                        "type": "string",
+                                                        "example": "Detalle del producto 1"
+                                                    },
+                                                    "precio": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 10.5
+                                                    },
+                                                    "stock": {
+                                                        "type": "integer",
+                                                        "example": 100
+                                                    },
+                                                    "fecha_elaboracion": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2023-01-01"
+                                                    },
+                                                    "fecha_vencimiento": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2023-12-31"
+                                                    },
+                                                    "talla": {
+                                                        "type": "string",
+                                                        "example": "M"
+                                                    },
+                                                    "codigo_qr": {
+                                                        "type": "string",
+                                                        "example": "QR123456"
+                                                    },
+                                                    "estado": {
+                                                        "type": "string",
+                                                        "example": "disponible"
+                                                    },
+                                                    "id_cat": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Producto"
+                ],
+                "summary": "Crear un nuevo producto",
+                "operationId": "b052334d681dfa0af70af7b96f6ea14b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_emprendimiento",
+                                    "nombre",
+                                    "stock",
+                                    "estado",
+                                    "id_cat"
+                                ],
+                                "properties": {
+                                    "id_emprendimiento": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Producto 1"
+                                    },
+                                    "detalle": {
+                                        "type": "string",
+                                        "example": "Detalle del producto 1"
+                                    },
+                                    "precio": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 10.5
+                                    },
+                                    "stock": {
+                                        "type": "integer",
+                                        "example": 100
+                                    },
+                                    "fecha_elaboracion": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-01-01"
+                                    },
+                                    "fecha_vencimiento": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-12-31"
+                                    },
+                                    "talla": {
+                                        "type": "string",
+                                        "example": "M"
+                                    },
+                                    "codigo_qr": {
+                                        "type": "string",
+                                        "example": "QR123456"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "disponible"
+                                    },
+                                    "id_cat": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Producto creado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Producto": {
+                                            "properties": {
+                                                "id_emprendimiento": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Producto 1"
+                                                },
+                                                "detalle": {
+                                                    "type": "string",
+                                                    "example": "Detalle del producto 1"
+                                                },
+                                                "precio": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 10.5
+                                                },
+                                                "stock": {
+                                                    "type": "integer",
+                                                    "example": 100
+                                                },
+                                                "fecha_elaboracion": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2023-01-01"
+                                                },
+                                                "fecha_vencimiento": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2023-12-31"
+                                                },
+                                                "talla": {
+                                                    "type": "string",
+                                                    "example": "M"
+                                                },
+                                                "codigo_qr": {
+                                                    "type": "string",
+                                                    "example": "QR123456"
+                                                },
+                                                "estado": {
+                                                    "type": "string",
+                                                    "example": "disponible"
+                                                },
+                                                "id_cat": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la base de datos"
+                                        },
+                                        "Error": {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre ya ha sido utilizado"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno del servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al crear el producto"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/producto/{id}": {
+            "get": {
+                "tags": [
+                    "Producto"
+                ],
+                "summary": "Obtener un producto por ID",
+                "operationId": "0af3bcbc5a9efbf6054c899484b24ec2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de el producto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Producto encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Productos": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_emprendimiento": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Producto 1"
+                                                },
+                                                "detalle": {
+                                                    "type": "string",
+                                                    "example": "Detalle del producto 1"
+                                                },
+                                                "precio": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 10.5
+                                                },
+                                                "stock": {
+                                                    "type": "integer",
+                                                    "example": 100
+                                                },
+                                                "fecha_elaboracion": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2023-01-01"
+                                                },
+                                                "fecha_vencimiento": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2023-12-31"
+                                                },
+                                                "talla": {
+                                                    "type": "string",
+                                                    "example": "M"
+                                                },
+                                                "codigo_qr": {
+                                                    "type": "string",
+                                                    "example": "QR123456"
+                                                },
+                                                "estado": {
+                                                    "type": "string",
+                                                    "example": "disponible"
+                                                },
+                                                "id_cat": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Producto no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Producto no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Producto"
+                ],
+                "summary": "Actualizar un producto por ID",
+                "operationId": "59a6007d5ac9898abf091fb02a59dd32",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de el producto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_emprendimiento",
+                                    "nombre",
+                                    "stock",
+                                    "estado",
+                                    "id_cat"
+                                ],
+                                "properties": {
+                                    "id_emprendimiento": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Producto 1"
+                                    },
+                                    "detalle": {
+                                        "type": "string",
+                                        "example": "Detalle del producto 1"
+                                    },
+                                    "precio": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 10.5
+                                    },
+                                    "stock": {
+                                        "type": "integer",
+                                        "example": 100
+                                    },
+                                    "fecha_elaboracion": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-01-01"
+                                    },
+                                    "fecha_vencimiento": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-12-31"
+                                    },
+                                    "talla": {
+                                        "type": "string",
+                                        "example": "M"
+                                    },
+                                    "codigo_qr": {
+                                        "type": "string",
+                                        "example": "QR123456"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "disponible"
+                                    },
+                                    "id_cat": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Producto actualizado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Producto actualizado exitosamente"
+                                        },
+                                        "Producto": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_emprendimiento": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Producto 1"
+                                                },
+                                                "detalle": {
+                                                    "type": "string",
+                                                    "example": "Detalle del producto 1"
+                                                },
+                                                "precio": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 10.5
+                                                },
+                                                "stock": {
+                                                    "type": "integer",
+                                                    "example": 100
+                                                },
+                                                "fecha_elaboracion": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2023-01-01"
+                                                },
+                                                "fecha_vencimiento": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2023-12-31"
+                                                },
+                                                "talla": {
+                                                    "type": "string",
+                                                    "example": "M"
+                                                },
+                                                "codigo_qr": {
+                                                    "type": "string",
+                                                    "example": "QR123456"
+                                                },
+                                                "estado": {
+                                                    "type": "string",
+                                                    "example": "disponible"
+                                                },
+                                                "id_cat": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Producto no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Producto no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la base de datos"
+                                        },
+                                        "Error": {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre ya ha sido utilizado"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno del servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "error al actualizar el producto"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Producto"
+                ],
+                "summary": "Eliminar un producto por ID",
+                "operationId": "55ef07602304de5fd61bd8d80bff08c9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de el producto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Producto eliminado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Producto": {
+                                            "type": "string",
+                                            "example": "eliminado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Producto no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Producto no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Producto"
+                ],
+                "summary": "Actualizar parcialmente un producto por ID",
+                "operationId": "973825ac85b9f1345e7e0be94ff68eca",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de el producto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_emprendimiento": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Producto 1"
+                                    },
+                                    "detalle": {
+                                        "type": "string",
+                                        "example": "Detalle del producto 1"
+                                    },
+                                    "precio": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 10.5
+                                    },
+                                    "stock": {
+                                        "type": "integer",
+                                        "example": 100
+                                    },
+                                    "fecha_elaboracion": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-01-01"
+                                    },
+                                    "fecha_vencimiento": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-12-31"
+                                    },
+                                    "talla": {
+                                        "type": "string",
+                                        "example": "M"
+                                    },
+                                    "codigo_qr": {
+                                        "type": "string",
+                                        "example": "QR123456"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "disponible"
+                                    },
+                                    "id_cat": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Producto actualizado parcialmente exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Producto actualizado parcialmente exitosamente"
+                                        },
+                                        "Producto": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_emprendimiento": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Producto 1"
+                                                },
+                                                "detalle": {
+                                                    "type": "string",
+                                                    "example": "Detalle del producto 1"
+                                                },
+                                                "precio": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 10.5
+                                                },
+                                                "stock": {
+                                                    "type": "integer",
+                                                    "example": 100
+                                                },
+                                                "fecha_elaboracion": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2023-01-01"
+                                                },
+                                                "fecha_vencimiento": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2023-12-31"
+                                                },
+                                                "talla": {
+                                                    "type": "string",
+                                                    "example": "M"
+                                                },
+                                                "codigo_qr": {
+                                                    "type": "string",
+                                                    "example": "QR123456"
+                                                },
+                                                "estado": {
+                                                    "type": "string",
+                                                    "example": "disponible"
+                                                },
+                                                "id_cat": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Producto no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Producto no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la base de datos"
+                                        },
+                                        "Error": {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre ya ha sido utilizado"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno del servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "error al actualizar el producto"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Categorías de Productos",
+            "description": "Categorías de Productos"
+        },
+        {
+            "name": "Emprendimiento",
+            "description": "Emprendimiento"
+        },
+        {
+            "name": "feria",
+            "description": "feria"
+        },
+        {
+            "name": "feria emprendimiento",
+            "description": "feria emprendimiento"
+        },
+        {
+            "name": "Producto",
+            "description": "Producto"
+        }
+    ]
+}
