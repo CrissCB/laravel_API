@@ -6,6 +6,492 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/categoria_emprendimiento": {
+            "get": {
+                "tags": [
+                    "Categorías de Emprendimiento"
+                ],
+                "summary": "Obtener todas las categorías de emprendimiento",
+                "operationId": "5b364f73395d6cb48600f12ae32b94a0",
+                "responses": {
+                    "200": {
+                        "description": "Lista de categorías obtenida exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "nombre": {
+                                                "type": "string",
+                                                "example": "Tecnología"
+                                            },
+                                            "descripcion": {
+                                                "type": "string",
+                                                "example": "Emprendimientos tecnológicos"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "No hay categorías registradas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "no hay categorias registradas"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Categorías de Emprendimiento"
+                ],
+                "summary": "Crear una nueva categoría de emprendimiento",
+                "operationId": "fe57841540d3c13d11fc560c8c0937fd",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "estado",
+                                    "nombre"
+                                ],
+                                "properties": {
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "activo"
+                                    },
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Tecnología"
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "Emprendimientos tecnológicos"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Categoría creada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Categoría creada con éxito"
+                                        },
+                                        "categoria": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "estado": {
+                                                    "type": "string",
+                                                    "example": "activo"
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Tecnología"
+                                                },
+                                                "descripcion": {
+                                                    "type": "string",
+                                                    "example": "Emprendimientos tecnológicos"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de los datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validación de los datos"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al crear categoría",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al crear categoría"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/categoria_emprendimiento/{id}": {
+            "get": {
+                "tags": [
+                    "Categorías de Emprendimiento"
+                ],
+                "summary": "Obtener una categoría de emprendimiento por ID",
+                "operationId": "3a4f37ccfa3651b8981e5579538630d0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la categoría de emprendimiento",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categoría encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "categoria_emprendimiento": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "estado": {
+                                                    "type": "string",
+                                                    "example": "activo"
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Tecnología"
+                                                },
+                                                "descripcion": {
+                                                    "type": "string",
+                                                    "example": "Emprendimientos tecnológicos"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Categoría no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Categoria no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Categorías de Emprendimiento"
+                ],
+                "summary": "Actualizar una categoría de emprendimiento",
+                "operationId": "e364c675d619777d435692158fe62825",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la categoría de emprendimiento a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "estado",
+                                    "nombre"
+                                ],
+                                "properties": {
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "activo"
+                                    },
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Tecnología"
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "Emprendimientos tecnológicos"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Categoría actualizada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Categoría Actualizada"
+                                        },
+                                        "categoria_emprendimiento": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de los datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validación de los datos"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Categoría no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Categoria no encontrada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Categorías de Emprendimiento"
+                ],
+                "summary": "Eliminar una categoría de emprendimiento",
+                "operationId": "b659cbe1e5f16f6146388ac0971dc26d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la categoría de emprendimiento a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categoría eliminada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Categoría Eliminada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Categoría no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Categoria no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Categorías de Emprendimiento"
+                ],
+                "summary": "Actualizar parcialmente una categoría de emprendimiento",
+                "operationId": "218aef3dd9257673cbbfc43fe9fac3b5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la categoría de emprendimiento a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "estado": {
+                                        "type": "string",
+                                        "maxLength": 2,
+                                        "example": "A"
+                                    },
+                                    "nombre": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Tecnología"
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "maxLength": 500,
+                                        "example": "Emprendimientos tecnológicos"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Categoría actualizada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Categoría Actualizada"
+                                        },
+                                        "categoria_emprendimiento": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Categoría no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Categoria no encontrada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/categoria_productos": {
             "get": {
                 "tags": [
@@ -3660,6 +4146,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Categorías de Emprendimiento",
+            "description": "Categorías de Emprendimiento"
+        },
         {
             "name": "Categorías de Productos",
             "description": "Categorías de Productos"
