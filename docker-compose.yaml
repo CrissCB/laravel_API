@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_api
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    networks:
+      - laravel-net
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    container_name: postgres_container
+    restart: always
+    environment:
+      POSTGRES_USER: udenar
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: udenar_emprende
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - laravel-net
+
+volumes:
+  pgdata:
+
+networks:
+  laravel-net:
+    driver: bridge
