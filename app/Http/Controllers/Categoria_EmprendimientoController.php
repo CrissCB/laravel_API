@@ -6,14 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Categoria_Emprendimiento;
 use Illuminate\Support\Facades\Validator;
 
-/**
- * @OA\Info(
- *     title="API de Categorías de Productos",
- *     version="1.0.0",
- *     description="API para gestionar categorías de productos"
- * )
- */
-
 class Categoria_EmprendimientoController extends Controller
 {
 
