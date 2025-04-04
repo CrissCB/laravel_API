@@ -1,30 +1,24 @@
-#!/bin/bash
+#!/bin/sh
+set -e
 
-set -e  # Detener ejecución si hay errores
+# Dar permisos correctos
+chmod -R 777 storage bootstrap/cache
 
-echo "Iniciando configuración de Laravel..."
-
-# Instalar dependencias solo si no están instaladas
-if [ ! -d "vendor" ]; then
-    composer install --no-interaction --prefer-dist --optimize-autoloader
+# Instalar dependencias si no existen
+if [ ! -f "vendor/autoload.php" ]; then
+    composer install --no-dev --optimize-autoloader
 fi
 
-# Asignar permisos a las carpetas necesarias
-chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
-
-# Esperar a la base de datos antes de continuar
-echo "Esperando a que PostgreSQL esté listo..."
-sleep 10  # Ajusta según sea necesario
+# Generar clave de aplicación
+php artisan key:generate || echo "⚠️ No se pudo generar la clave de la aplicación"
 
 # Ejecutar migraciones
-php artisan migrate --force
+php artisan migrate --force || echo "⚠️ No se pudieron ejecutar las migraciones"
 
-# Generar clave de Laravel si no existe .env
-if [ ! -f ".env" ]; then
-    cp .env.example .env
-    php artisan key:generate
-fi
+# Generar documentación de la API (opcional)
+php artisan l5-swagger:generate || echo "⚠️ No se pudo generar Swagger"
 
 # Iniciar Apache
-exec apache2-foreground
+apache2-foreground
+dos2unix entrypoint.sh
+chmod +x entrypoint.sh
