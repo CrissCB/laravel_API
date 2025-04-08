@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   api:
     build:
@@ -10,10 +8,12 @@ services:
       - "8000:80"
     volumes:
       - .:/var/www/html
+      - ./entrypoint.sh:/entrypoint.sh 
     networks:
       - laravel-net
     depends_on:
       - postgres
+    entrypoint: ["/entrypoint.sh"]
 
   postgres:
     image: postgres
