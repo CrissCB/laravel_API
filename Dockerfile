@@ -33,13 +33,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Instalar dependencias
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# Instalar dependencias antes de copiar el código fuente
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
-
-# Copiar el resto del código fuente
-COPY . /var/www/html
-
 # Asegurar permisos de las carpetas necesarias
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
@@ -48,4 +41,3 @@ RUN chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-
