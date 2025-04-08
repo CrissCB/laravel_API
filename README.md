@@ -18,25 +18,7 @@ Sigue estos pasos para instalar y ejecutar la API:
 3. **Levanta los contenedores con Docker Compose:**
 
    ```sh
-   docker-compose up -d
-   ```
-
-4. **Accede al contenedor de la API:**
-
-   ```sh
-   docker-compose exec api bash
-   ```
-
-5. **Instala las dependencias de Laravel:**
-
-   ```sh
-   composer install
-   ```
-
-6. **Ejecuta las migraciones de la base de datos:**
-
-   ```sh
-   php artisan migrate
+   docker-compose up --build
    ```
 
 Con estos pasos, ya tendrás tu API en un contenedor Docker lista para usarse.
@@ -45,4 +27,5 @@ Con estos pasos, ya tendrás tu API en un contenedor Docker lista para usarse.
 
 - Asegúrate de tener **Docker** y **Docker Compose** instalados en tu sistema.
 - Puedes acceder a la API a través de `http://localhost` (o el puerto configurado en `docker-compose.yml`).
+- los puertos que utiliza por defecto son el `8000:80` para la pagina de laravel y el `5432:5432` para la base de datos si necesitas cambiar los puertos lo puedes hacer desde el archivo `docker-compose.yaml`.
 
