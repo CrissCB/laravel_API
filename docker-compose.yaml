@@ -22,11 +22,30 @@ services:
     environment:
       POSTGRES_USER: udenar
       POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: udenar_emprende
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./init-multiple-dbs.sql:/docker-entrypoint-initdb.d/init-multiple-dbs.sql
+    networks:
+      - laravel-net
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.2.0
+    command: start-dev
+    container_name: keycloak_container
+    environment:
+      KC_DB: postgres
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_DATABASE: keycloak_db
+      KC_DB_USERNAME: udenar
+      KC_DB_PASSWORD: 123456
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres
     networks:
       - laravel-net
 
