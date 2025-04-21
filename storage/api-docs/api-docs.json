@@ -4143,6 +4143,2434 @@
                     }
                 }
             }
+        },
+        "/api/cliente": {
+            "get": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Obtener todos los clientes",
+                "operationId": "e02c03db88d88a27401d817e47ab2187",
+                "responses": {
+                    "200": {
+                        "description": "Lista de clientes",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "nombre": {
+                                                "type": "string",
+                                                "example": "Carlos"
+                                            },
+                                            "email": {
+                                                "type": "string",
+                                                "example": "carlos@mail.com"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "No hay clientes registrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "no hay clientes registrados"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Registrar un nuevo cliente",
+                "operationId": "469f4d88a1d27b95b61b0922e033d8f3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "apellido",
+                                    "identificacion",
+                                    "estado",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Juan"
+                                    },
+                                    "apellido": {
+                                        "type": "string",
+                                        "example": "Pérez"
+                                    },
+                                    "identificacion": {
+                                        "type": "string",
+                                        "example": "1234567890"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "activo"
+                                    },
+                                    "fecha_nacimiento": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-05-10"
+                                    },
+                                    "sexo": {
+                                        "type": "string",
+                                        "example": "masculino"
+                                    },
+                                    "direccion": {
+                                        "type": "string",
+                                        "example": "Calle Falsa 123"
+                                    },
+                                    "telefono": {
+                                        "type": "string",
+                                        "example": "3001234567"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "juan@example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Cliente creado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Juan"
+                                        },
+                                        "apellido": {
+                                            "type": "string",
+                                            "example": "Pérez"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "juan@example.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de los datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validacion de los datos"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "email": [
+                                                    "El campo email es obligatorio"
+                                                ]
+                                            }
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al crear cliente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al crear cliente"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cliente/{id}": {
+            "get": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Obtener un cliente por ID",
+                "operationId": "813f501e73b90e51802f8a9400987353",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cliente encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "cliente": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Carlos"
+                                                },
+                                                "apellido": {
+                                                    "type": "string",
+                                                    "example": "Ramírez"
+                                                },
+                                                "identificacion": {
+                                                    "type": "string",
+                                                    "example": "1234567890"
+                                                },
+                                                "estado": {
+                                                    "type": "string",
+                                                    "example": "A"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "carlos.ramirez@email.com"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-15T12:34:56Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-15T12:34:56Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cliente no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cliente no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Actualizar un cliente",
+                "operationId": "6be039ccbab018c4c6a738085884af79",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del cliente a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "apellido",
+                                    "identificacion",
+                                    "estado",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Carlos"
+                                    },
+                                    "apellido": {
+                                        "type": "string",
+                                        "example": "Ramírez"
+                                    },
+                                    "identificacion": {
+                                        "type": "string",
+                                        "example": "1234567890"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "A"
+                                    },
+                                    "fecha_nacimiento": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-05-20"
+                                    },
+                                    "sexo": {
+                                        "type": "string",
+                                        "example": "M"
+                                    },
+                                    "direccion": {
+                                        "type": "string",
+                                        "example": "Calle 123 #45-67"
+                                    },
+                                    "telefono": {
+                                        "type": "string",
+                                        "example": "3123456789"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "carlos.ramirez@email.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Cliente actualizado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cliente Actualizado"
+                                        },
+                                        "cliente": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de los datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validación de los datos"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cliente no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cliente no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Eliminar un cliente por ID",
+                "operationId": "3a430f92cf9e8f7d799e351d936f8e0e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del cliente a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cliente eliminado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cliente Eliminado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cliente no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cliente no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Actualizar parcialmente un cliente",
+                "operationId": "b7c67231bed4c5c755fb9018e3454ebc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del cliente a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "maxLength": 250,
+                                        "example": "Carlos"
+                                    },
+                                    "apellido": {
+                                        "type": "string",
+                                        "maxLength": 250,
+                                        "example": "Ramírez"
+                                    },
+                                    "identificacion": {
+                                        "type": "string",
+                                        "maxLength": 250,
+                                        "example": "1234567890"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "maxLength": 2,
+                                        "example": "A"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "carlos.ramirez@email.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Cliente actualizado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cliente Actualizado"
+                                        },
+                                        "cliente": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error de validación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validacion de los datos"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cliente no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cliente no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/interaccion": {
+            "get": {
+                "tags": [
+                    "Interacciones"
+                ],
+                "summary": "Obtener todas las interacciones",
+                "operationId": "c130b3346469d9db3ba9eba7af835774",
+                "responses": {
+                    "200": {
+                        "description": "Lista de interacciones obtenida exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "usuario_id": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "tipo": {
+                                                "type": "string",
+                                                "example": "like"
+                                            },
+                                            "descripcion": {
+                                                "type": "string",
+                                                "example": "El usuario dio like a un post."
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-04-06T14:23:45Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-04-06T14:25:00Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "No hay interacciones registradas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "no hay interacciones registradas"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Interacciones"
+                ],
+                "summary": "Crear una nueva interacción",
+                "operationId": "ad285f866f84d45ecbea21e765c6fddb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_cliente",
+                                    "id_publicacion"
+                                ],
+                                "properties": {
+                                    "id_cliente": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_publicacion": {
+                                        "type": "integer",
+                                        "example": 10
+                                    },
+                                    "fecha_interaccion": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-04-06"
+                                    },
+                                    "comentarios": {
+                                        "type": "string",
+                                        "example": "Buen contenido"
+                                    },
+                                    "calificacion": {
+                                        "type": "integer",
+                                        "example": 5
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Interacción creada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Interacción creada exitosamente"
+                                        },
+                                        "interaccion": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_cliente": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_publicacion": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "fecha_interaccion": {
+                                                    "type": "string",
+                                                    "example": "2025-04-06"
+                                                },
+                                                "comentarios": {
+                                                    "type": "string",
+                                                    "example": "Buen contenido"
+                                                },
+                                                "calificacion": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2025-04-06T12:00:00Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2025-04-06T12:00:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de los datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validacion de los datos"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al crear interaccion",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al crear interaccion"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/interaccion/{id}": {
+            "get": {
+                "tags": [
+                    "Interacciones"
+                ],
+                "summary": "Obtener una interacción por ID",
+                "operationId": "62c669e38ef0c28e5560b1833f7753aa",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la interacción",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Interacción obtenida exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "interaccion": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_cliente": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_publicacion": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "fecha_interaccion": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-04-06"
+                                                },
+                                                "comentarios": {
+                                                    "type": "string",
+                                                    "example": "Buen contenido"
+                                                },
+                                                "calificacion": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-04-06T12:00:00Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-04-06T12:00:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Interacción no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Interaccion no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Interacciones"
+                ],
+                "summary": "Actualizar completamente una interacción por ID",
+                "operationId": "b9f0ab9de69bbfe5f55fed170f89d1da",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la interacción a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_cliente": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_publicacion": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "fecha_interaccion": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-04-06"
+                                    },
+                                    "comentarios": {
+                                        "type": "string",
+                                        "example": "Muy buena publicación"
+                                    },
+                                    "calificacion": {
+                                        "type": "integer",
+                                        "example": 4
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Interacción actualizada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Interaccion Actualizada"
+                                        },
+                                        "interaccion": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_cliente": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_publicacion": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "fecha_interaccion": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-04-06"
+                                                },
+                                                "comentarios": {
+                                                    "type": "string",
+                                                    "example": "Muy buena publicación"
+                                                },
+                                                "calificacion": {
+                                                    "type": "integer",
+                                                    "example": 4
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-04-06T12:00:00Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-04-06T12:30:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de los datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validacion de los datos"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Interacción no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Interaccion no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Interacciones"
+                ],
+                "summary": "Eliminar una interacción por ID",
+                "operationId": "86dc1fa213062cfb391efc1cdebead79",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la interacción a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Interacción eliminada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Interaccion Eliminada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Interacción no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Interaccion no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Interacciones"
+                ],
+                "summary": "Actualizar parcialmente una interacción por ID",
+                "operationId": "0ea71cc25075a7e1dfdcce67562454a7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la interacción a actualizar parcialmente",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_cliente": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_publicacion": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "fecha_interaccion": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-04-06"
+                                    },
+                                    "comentarios": {
+                                        "type": "string",
+                                        "example": "Comentario actualizado"
+                                    },
+                                    "calificacion": {
+                                        "type": "integer",
+                                        "example": 3
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Interacción actualizada parcialmente con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Interaccion Actualizada"
+                                        },
+                                        "interaccion": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_cliente": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_publicacion": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "fecha_interaccion": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-04-06"
+                                                },
+                                                "comentarios": {
+                                                    "type": "string",
+                                                    "example": "Comentario actualizado"
+                                                },
+                                                "calificacion": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-04-06T12:00:00Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-04-06T12:30:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Interacción no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Interaccion no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/publicaciones": {
+            "get": {
+                "tags": [
+                    "Publicaciones"
+                ],
+                "summary": "Obtener todas las publicaciones",
+                "operationId": "c12dd3fc46f73ab9bd003c1bdd4fe5f3",
+                "responses": {
+                    "200": {
+                        "description": "Lista de publicaciones obtenida exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "id_emprendimiento": {
+                                                "type": "integer",
+                                                "example": 2
+                                            },
+                                            "titulo": {
+                                                "type": "string",
+                                                "example": "Lanzamiento de nuevo producto"
+                                            },
+                                            "descripcion": {
+                                                "type": "string",
+                                                "example": "Estamos emocionados de lanzar nuestro nuevo producto."
+                                            },
+                                            "imagen": {
+                                                "type": "string",
+                                                "example": "https://ejemplo.com/imagen.jpg"
+                                            },
+                                            "fecha_publicacion": {
+                                                "type": "string",
+                                                "format": "date",
+                                                "example": "2025-04-06"
+                                            },
+                                            "estado": {
+                                                "type": "string",
+                                                "example": "activo"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-04-06T10:00:00Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-04-06T10:15:00Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "No hay publicaciones registradas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "no hay publicaciones registradas"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Publicaciones"
+                ],
+                "summary": "Crear una nueva publicación",
+                "operationId": "986809601e87e42997c7a68183f447af",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "titulo",
+                                    "estado"
+                                ],
+                                "properties": {
+                                    "titulo": {
+                                        "type": "string",
+                                        "example": "Nueva feria artesanal"
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "Evento local con productos hechos a mano"
+                                    },
+                                    "imagen_url": {
+                                        "type": "string",
+                                        "format": "url",
+                                        "example": "https://example.com/imagen.jpg"
+                                    },
+                                    "id_emprendimiento": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "id_feria": {
+                                        "type": "integer",
+                                        "example": 3
+                                    },
+                                    "fecha_publicacion": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2025-04-06T14:00:00Z"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "activa"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Publicación creada con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Publicación creada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de los datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validacion de los datos"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al crear publicación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al crear publicacion"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/publicaciones/{id}": {
+            "get": {
+                "tags": [
+                    "Publicaciones"
+                ],
+                "summary": "Obtener una publicación por ID",
+                "operationId": "107075fc29e4ab5623caa3ad080859a0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la publicación",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Publicación encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "publicacion": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Publicación no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Publicacion no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Publicaciones"
+                ],
+                "summary": "Actualizar completamente una publicación",
+                "operationId": "2dc638e06c4891189c3ccea26e69837b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la publicación a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "titulo",
+                                    "estado"
+                                ],
+                                "properties": {
+                                    "titulo": {
+                                        "type": "string",
+                                        "example": "Nuevo título de publicación"
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "Descripción actualizada"
+                                    },
+                                    "imagen_url": {
+                                        "type": "string",
+                                        "example": "http://imagen.com/foto.jpg"
+                                    },
+                                    "id_emprendimiento": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "id_feria": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "fecha_publicacion": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-04-06"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "A"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Publicación actualizada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Publicacion Actualizada"
+                                        },
+                                        "publicacion": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validacion de los datos"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Publicación no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Publicacion no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Publicaciones"
+                ],
+                "summary": "Eliminar una publicación por ID",
+                "operationId": "262042ac377844ab46e44c1cdf84b0dd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la publicación a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Publicación eliminada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Publicacion Eliminada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Publicación no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Publicacion no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Publicaciones"
+                ],
+                "summary": "Actualizar parcialmente una publicación",
+                "operationId": "0ce84150598ecd65e85b4770b63cf471",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la publicación a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "titulo": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Título actualizado"
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "maxLength": 500,
+                                        "example": "Descripción parcial"
+                                    },
+                                    "imagen_url": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "http://example.com/nueva-imagen.jpg"
+                                    },
+                                    "id_emprendimiento": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "id_feria": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "fecha_publicacion": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-04-06"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "maxLength": 2,
+                                        "example": "A"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Publicación actualizada parcialmente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Publicacion Actualizado"
+                                        },
+                                        "publicacion": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validacion de los datos"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Publicación no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Publicacion no encontrada"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Obtener todos los usuarios",
+                "operationId": "1953039805f7696e3a6215debc5847ad",
+                "responses": {
+                    "200": {
+                        "description": "Lista de usuarios",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "No hay usuarios registrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "no hay usuarios registrados"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Crear un nuevo usuario",
+                "operationId": "8592f264a3b9a08549a2dcc59088d38c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "apellido",
+                                    "identificacion",
+                                    "estado",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Juan"
+                                    },
+                                    "apellido": {
+                                        "type": "string",
+                                        "example": "Pérez"
+                                    },
+                                    "identificacion": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    },
+                                    "codigo": {
+                                        "type": "string",
+                                        "example": "U2025"
+                                    },
+                                    "programa": {
+                                        "type": "string",
+                                        "example": "Ingeniería de Sistemas"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "fecha_nacimiento": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2000-05-20"
+                                    },
+                                    "sexo": {
+                                        "type": "string",
+                                        "example": "M"
+                                    },
+                                    "direccion": {
+                                        "type": "string",
+                                        "example": "Calle 123 #45-67"
+                                    },
+                                    "telefono": {
+                                        "type": "string",
+                                        "example": "3123456789"
+                                    },
+                                    "redes_sociales": {
+                                        "type": "string",
+                                        "example": "@juanperez"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "juan@example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuario creado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuario creado"
+                                        },
+                                        "usuario": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de los datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validacion de los datos"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al crear usuario",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al crear usuario"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/{id}": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Obtener un usuario por ID",
+                "operationId": "dbdf89c722a3ca1cec7491779e3d73eb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuario encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "usuario": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuario no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Actualizar un usuario por ID",
+                "operationId": "e18206ec4fc17a4c90e24b4e64cbe6ce",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "apellido",
+                                    "identificacion",
+                                    "estado",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Carlos"
+                                    },
+                                    "apellido": {
+                                        "type": "string",
+                                        "example": "Pérez"
+                                    },
+                                    "identificacion": {
+                                        "type": "string",
+                                        "example": "1122334455"
+                                    },
+                                    "codigo_estudiantil": {
+                                        "type": "string",
+                                        "example": "2020123456"
+                                    },
+                                    "programa": {
+                                        "type": "string",
+                                        "example": "Ingeniería de Sistemas"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "A"
+                                    },
+                                    "fecha_nacimiento": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1998-04-15"
+                                    },
+                                    "sexo": {
+                                        "type": "string",
+                                        "example": "M"
+                                    },
+                                    "direccion": {
+                                        "type": "string",
+                                        "example": "Calle 123 #45-67"
+                                    },
+                                    "telefono": {
+                                        "type": "string",
+                                        "example": "3201234567"
+                                    },
+                                    "redes_sociales": {
+                                        "type": "string",
+                                        "example": "@carlosperez"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "carlos@example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuario actualizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuario Actualizado"
+                                        },
+                                        "usuario": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de los datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validacion de los datos"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuario no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Eliminar un usuario por ID",
+                "operationId": "ae81910d6aa9f219382da4c941453493",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuario eliminado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuario Eliminado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuario no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Actualizar parcialmente un usuario por ID",
+                "operationId": "765679cbfc95bd09d5da59094de5e6ad",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos a actualizar (al menos uno)",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "maxLength": 250,
+                                        "example": "Luis"
+                                    },
+                                    "apellido": {
+                                        "type": "string",
+                                        "maxLength": 250,
+                                        "example": "Ramírez"
+                                    },
+                                    "identificacion": {
+                                        "type": "string",
+                                        "maxLength": 250,
+                                        "example": "1234567890"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "maxLength": 2,
+                                        "example": "A"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "luis.ramirez@example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuario actualizado parcialmente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuario Actualizado"
+                                        },
+                                        "usuario": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de los datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validacion de los datos"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuario no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "tags": [
@@ -4169,6 +6597,22 @@
         {
             "name": "Categorías de Emprendimiento",
             "description": "Categorías de Emprendimiento"
+        },
+        {
+            "name": "Clientes",
+            "description": "Clientes"
+        },
+        {
+            "name": "Interacciones",
+            "description": "Interacciones"
+        },
+        {
+            "name": "Publicaciones",
+            "description": "Publicaciones"
+        },
+        {
+            "name": "Usuarios",
+            "description": "Usuarios"
         }
     ]
 }
