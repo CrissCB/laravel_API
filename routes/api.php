@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\catproducto_Controller;
@@ -15,13 +15,17 @@ use App\Http\Controllers\Categoria_EmprendimientoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\InteraccionController;
 
+use App\Http\Middleware\KeycloakAuth;
+
 // Categoria Productos -> rutas
-Route::get('/categoria_productos', [catproducto_Controller::class, 'index']);
-Route::get('/categoria_productos/{nombre}', [catproducto_Controller::class, 'show']);
-Route::post('/categoria_productos', [catproducto_Controller::class, 'store']);
-Route::put('/categoria_productos/{nombre}', [catproducto_Controller::class, 'update']);
-Route::patch('/categoria_productos/{nombre}', [catproducto_Controller::class, 'updatePartial']);
-Route::delete('/categoria_productos/{nombre}', [catproducto_Controller::class, 'destroy']);
+Route::middleware([KeycloakAuth::class])->group(function () {
+    Route::get('/categoria_productos', [catproducto_Controller::class, 'index']);
+    Route::get('/categoria_productos/{nombre}', [catproducto_Controller::class, 'show']);
+    Route::post('/categoria_productos', [catproducto_Controller::class, 'store']);
+    Route::put('/categoria_productos/{nombre}', [catproducto_Controller::class, 'update']);
+    Route::patch('/categoria_productos/{nombre}', [catproducto_Controller::class, 'updatePartial']);
+    Route::delete('/categoria_productos/{nombre}', [catproducto_Controller::class, 'destroy']);
+});
 
 // Emprendimiento -> rutas
 Route::get('/emprendimiento', [emprendimiento_Controller::class, 'index']);
