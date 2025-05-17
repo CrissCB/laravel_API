@@ -3,6 +3,8 @@
 // use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Auth\AuthController;
+
 use App\Http\Controllers\Api\catproducto_Controller;
 use App\Http\Controllers\Api\emprendimiento_Controller;
 use App\Http\Controllers\Api\feria_Controller;
@@ -17,6 +19,7 @@ use App\Http\Controllers\InteraccionController;
 
 use App\Http\Middleware\KeycloakAuth;
 
+Route::post('/token-exchange', [AuthController::class, 'exchangeToken']);
 // Categoria Productos -> rutas
 Route::middleware([KeycloakAuth::class])->group(function () {
     Route::get('/categoria_productos', [catproducto_Controller::class, 'index']);

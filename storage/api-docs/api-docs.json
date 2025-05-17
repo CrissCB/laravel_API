@@ -4340,13 +4340,13 @@
                 }
             }
         },
-        "/api/clientes/{id}": {
+        "/api/cliente/{id}": {
             "get": {
                 "tags": [
                     "Clientes"
                 ],
-                "summary": "Obtener un cliente por su ID",
-                "operationId": "0d3826d79390929601421b5810b61231",
+                "summary": "Obtener un cliente por ID",
+                "operationId": "813f501e73b90e51802f8a9400987353",
                 "parameters": [
                     {
                         "name": "id",
@@ -4354,14 +4354,13 @@
                         "description": "ID del cliente",
                         "required": true,
                         "schema": {
-                            "type": "integer",
-                            "example": 1
+                            "type": "integer"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Cliente obtenido exitosamente",
+                        "description": "Cliente encontrado",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -4374,15 +4373,34 @@
                                                 },
                                                 "nombre": {
                                                     "type": "string",
-                                                    "example": "Juan Pérez"
+                                                    "example": "Carlos"
                                                 },
-                                                "correo": {
+                                                "apellido": {
                                                     "type": "string",
-                                                    "example": "juan@example.com"
+                                                    "example": "Ramírez"
                                                 },
-                                                "telefono": {
+                                                "identificacion": {
                                                     "type": "string",
-                                                    "example": "123456789"
+                                                    "example": "1234567890"
+                                                },
+                                                "estado": {
+                                                    "type": "string",
+                                                    "example": "A"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "carlos.ramirez@email.com"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-15T12:34:56Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-04-15T12:34:56Z"
                                                 }
                                             },
                                             "type": "object"
@@ -4423,8 +4441,8 @@
                 "tags": [
                     "Clientes"
                 ],
-                "summary": "Actualizar un cliente por su ID",
-                "operationId": "74956b09f3ea120b5dd531c73776ca11",
+                "summary": "Actualizar un cliente",
+                "operationId": "6be039ccbab018c4c6a738085884af79",
                 "parameters": [
                     {
                         "name": "id",
@@ -4432,8 +4450,7 @@
                         "description": "ID del cliente a actualizar",
                         "required": true,
                         "schema": {
-                            "type": "integer",
-                            "example": 1
+                            "type": "integer"
                         }
                     }
                 ],
@@ -4452,39 +4469,41 @@
                                 "properties": {
                                     "nombre": {
                                         "type": "string",
-                                        "example": "Juan"
+                                        "example": "Carlos"
                                     },
                                     "apellido": {
                                         "type": "string",
-                                        "example": "Pérez"
+                                        "example": "Ramírez"
                                     },
                                     "identificacion": {
                                         "type": "string",
-                                        "example": "12345678"
+                                        "example": "1234567890"
                                     },
                                     "estado": {
                                         "type": "string",
-                                        "example": "activo"
+                                        "example": "A"
                                     },
                                     "fecha_nacimiento": {
                                         "type": "string",
-                                        "example": "1990-01-01"
+                                        "format": "date",
+                                        "example": "1990-05-20"
                                     },
                                     "sexo": {
                                         "type": "string",
-                                        "example": "masculino"
+                                        "example": "M"
                                     },
                                     "direccion": {
                                         "type": "string",
-                                        "example": "Calle Falsa 123"
+                                        "example": "Calle 123 #45-67"
                                     },
                                     "telefono": {
                                         "type": "string",
-                                        "example": "3216549870"
+                                        "example": "3123456789"
                                     },
                                     "email": {
                                         "type": "string",
-                                        "example": "juan@example.com"
+                                        "format": "email",
+                                        "example": "carlos.ramirez@email.com"
                                     }
                                 },
                                 "type": "object"
@@ -4504,29 +4523,7 @@
                                             "example": "Cliente Actualizado"
                                         },
                                         "cliente": {
-                                            "properties": {
-                                                "id": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "nombre": {
-                                                    "type": "string",
-                                                    "example": "Juan"
-                                                },
-                                                "apellido": {
-                                                    "type": "string",
-                                                    "example": "Pérez"
-                                                },
-                                                "email": {
-                                                    "type": "string",
-                                                    "example": "juan@example.com"
-                                                }
-                                            },
                                             "type": "object"
-                                        },
-                                        "status": {
-                                            "type": "integer",
-                                            "example": 200
                                         }
                                     },
                                     "type": "object"
@@ -4542,14 +4539,10 @@
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Error en la validacion de los datos"
+                                            "example": "Error en la validación de los datos"
                                         },
                                         "errors": {
                                             "type": "object"
-                                        },
-                                        "status": {
-                                            "type": "integer",
-                                            "example": 400
                                         }
                                     },
                                     "type": "object"
@@ -4578,9 +4571,7 @@
                         }
                     }
                 }
-            }
-        },
-        "/api/cliente/{id}": {
+            },
             "delete": {
                 "tags": [
                     "Clientes"
@@ -4641,66 +4632,121 @@
                         }
                     }
                 }
-            }
-        },
-        "/api/interacciones": {
-            "get": {
+            },
+            "patch": {
                 "tags": [
-                    "Interacciones"
+                    "Clientes"
                 ],
-                "summary": "Obtener todas las interacciones",
-                "operationId": "e61d6121763a917f703d1b5b0940bf32",
-                "responses": {
-                    "200": {
-                        "description": "Lista de interacciones obtenida exitosamente",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "properties": {
-                                            "id": {
-                                                "type": "integer",
-                                                "example": 1
-                                            },
-                                            "usuario_id": {
-                                                "type": "integer",
-                                                "example": 15
-                                            },
-                                            "tipo": {
-                                                "type": "string",
-                                                "example": "like"
-                                            },
-                                            "mensaje": {
-                                                "type": "string",
-                                                "example": "Interacción realizada correctamente"
-                                            },
-                                            "created_at": {
-                                                "type": "string",
-                                                "format": "date-time",
-                                                "example": "2025-04-06T12:34:56Z"
-                                            },
-                                            "updated_at": {
-                                                "type": "string",
-                                                "format": "date-time",
-                                                "example": "2025-04-06T12:34:56Z"
-                                            }
-                                        },
-                                        "type": "object"
+                "summary": "Actualizar parcialmente un cliente",
+                "operationId": "b7c67231bed4c5c755fb9018e3454ebc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del cliente a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "maxLength": 250,
+                                        "example": "Carlos"
+                                    },
+                                    "apellido": {
+                                        "type": "string",
+                                        "maxLength": 250,
+                                        "example": "Ramírez"
+                                    },
+                                    "identificacion": {
+                                        "type": "string",
+                                        "maxLength": 250,
+                                        "example": "1234567890"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "maxLength": 2,
+                                        "example": "A"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "carlos.ramirez@email.com"
                                     }
-                                }
+                                },
+                                "type": "object"
                             }
                         }
-                    },
-                    "400": {
-                        "description": "No hay interacciones registradas",
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Cliente actualizado exitosamente",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "No hay interacciones registradas"
+                                            "example": "Cliente Actualizado"
+                                        },
+                                        "cliente": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error de validación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error en la validacion de los datos"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cliente no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cliente no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
                                         }
                                     },
                                     "type": "object"
