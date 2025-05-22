@@ -74,7 +74,7 @@ Route::patch('/user/{id}',[UsuarioController::class, 'updatePartial']);
 
 //Rutas autenticacion usuario keycloak
 Route::get('/user_key',[UsuarioKeyController::class, 'index']);
-
+Route::get('/user_key/{id}', [UsuarioKeyController::class, 'show']);
 
 //Rutas publicaciones
 Route::get('/publicaciones',[PublicacionesController::class, 'index']);
