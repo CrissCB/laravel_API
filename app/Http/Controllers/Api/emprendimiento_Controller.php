@@ -347,9 +347,9 @@ class emprendimiento_Controller extends Controller
     *     )
     * )
     */
-    public function update(Request $request, $nombre)
+    public function update(Request $request, $id_cat)
     {
-        $emprendimiento = Emprendimiento::where('nombre', $nombre)->first();
+        $emprendimiento = Emprendimiento::where('id_cat', $id_cat)->first();
 
         if (!$emprendimiento) {
             $data = [
@@ -361,11 +361,11 @@ class emprendimiento_Controller extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'id_cat' => 'required|integer|exists:categoria_emprendimiento,id_cat',
+            // 'id_cat' => 'required|integer|exists:categoria_emprendimiento,id_cat',
             'marca' => 'nullable|string|max:255',
             'descripcion' => 'nullable|string',
             'estado' => 'required|in:A,IN',
-            'id_usuario' => 'required|integer|exists:usuario,id'
+            // 'id_usuario' => 'required|integer|exists:usuario,id'
         ]);
 
         if ($validator->fails()) {
