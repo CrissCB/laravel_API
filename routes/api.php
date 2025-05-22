@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\emprendimiento_Controller;
 use App\Http\Controllers\Api\feria_Controller;
 use App\Http\Controllers\Api\feria_emprendimiento_Controller;
 use App\Http\Controllers\Api\producto_controller;
+use App\Http\Controllers\Api\UsuarioKeyController;
 
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PublicacionesController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\InteraccionController;
 
 use App\Http\Middleware\KeycloakAuth;
 
+// Route::post('/token-exchange', [AuthController::class, 'exchangeToken']);
 Route::post('/token-exchange', [AuthController::class, 'exchangeToken']);
 // Categoria Productos -> rutas
 Route::middleware([KeycloakAuth::class])->group(function () {
@@ -69,6 +71,10 @@ Route::get('/user/{id}',[UsuarioController::class, 'show']);
 Route::delete('/user/{id}',[UsuarioController::class, 'destroy']);
 Route::put('/user/{id}',[UsuarioController::class, 'update']);
 Route::patch('/user/{id}',[UsuarioController::class, 'updatePartial']);
+
+//Rutas autenticacion usuario keycloak
+Route::get('/user_key',[UsuarioKeyController::class, 'index']);
+
 
 //Rutas publicaciones
 Route::get('/publicaciones',[PublicacionesController::class, 'index']);
