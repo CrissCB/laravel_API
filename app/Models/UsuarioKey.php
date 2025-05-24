@@ -12,7 +12,7 @@ class UsuarioKey extends Model
 
     protected $table = 'user_entity';
     protected $connection = 'pgsql2';
-    protected $appends = ['identificacion'];
+    protected $appends = ['identificacion', 'rol'];
     protected $fillable = [
         'id',
         'email',
@@ -35,6 +35,17 @@ class UsuarioKey extends Model
         return $this->hasMany(UserAttribute::class, 'user_id', 'id');
     }
 
+    // Relación con los roles.
+    public function roles()
+    {
+        return $this->belongsToMany(
+            KeycloakRole::class,
+            'user_role_mapping',
+            'user_id',
+            'role_id'
+        );
+    }
+
     // Accesor para fácil obtención de la identificación
     public function getIdentificacionAttribute()
     {
@@ -44,4 +55,15 @@ class UsuarioKey extends Model
         
         return $identificacion ? $identificacion->value : null;
     }
+
+    public function getRolAttribute()
+{
+    $rol = $this->roles()
+              ->where('name', '!=', 'default-roles-laravel-realm')
+              ->where('name', 'NOT LIKE', '%offline_access%')
+              ->where('name', 'NOT LIKE', '%uma_authorization%')
+              ->first();
+    
+    return $rol ? $rol->name : null;
+}
 }
