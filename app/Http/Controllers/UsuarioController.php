@@ -170,7 +170,7 @@ class UsuarioController extends Controller
 
     public function show($id)
     {
-        $usuario = Usuario::find($id);
+        $usuario = Usuario::where('identificacion', $id)->first();
 
         if(!$usuario){
             $data= [

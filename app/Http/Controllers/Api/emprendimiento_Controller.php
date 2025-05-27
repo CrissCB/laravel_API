@@ -122,7 +122,7 @@ class emprendimiento_Controller extends Controller
     *             @OA\Property(property="marca", type="string", example="Marca 1"),
     *             @OA\Property(property="descripcion", type="string", example="Descripción del emprendimiento 1"),
     *             @OA\Property(property="estado", type="string", example="A"),
-    *             @OA\Property(property="id_usuario", type="integer", example=1),
+    *             @OA\Property(property="id_usuario", type="string", example=1),
     *         )
     *     ),
     *     @OA\Response(
@@ -137,7 +137,7 @@ class emprendimiento_Controller extends Controller
     *                     @OA\Property(property="marca", type="string", example="Marca 1"),
     *                     @OA\Property(property="descripcion", type="string", example="Descripción del emprendimiento 1"),
     *                     @OA\Property(property="estado", type="string", example="A"),
-    *                     @OA\Property(property="id_usuario", type="integer", example=1),
+    *                     @OA\Property(property="id_usuario", type="string", example=1),
     *                     @OA\Property(property="created_at", type="string", format="date-time", example="2023-10-01T00:00:00Z")
     *             ),
     *             @OA\Property(property="status", type="integer", example=201)
@@ -176,7 +176,7 @@ class emprendimiento_Controller extends Controller
             'marca' => 'nullable|string|max:255',
             'descripcion' => 'nullable|string',
             'estado' => 'required|in:A,IN',
-            'id_usuario' => 'required|integer|exists:usuario,id'
+            'id_usuario' => 'required|string|exists:usuario,identificacion'
         ]);
 
         if ($validator->fails()) {
@@ -423,7 +423,7 @@ class emprendimiento_Controller extends Controller
     *                     @OA\Property(property="marca", type="string", example="Marca 1"),
     *                     @OA\Property(property="descripcion", type="string", example="Descripción del emprendimiento 1"),
     *                     @OA\Property(property="estado", type="string", example="A"),
-    *                     @OA\Property(property="id_usuario", type="integer", example=1)
+    *                     @OA\Property(property="id_usuario", type="string", example=1)
     *         )
     *     ),
     *     @OA\Response(
@@ -438,7 +438,7 @@ class emprendimiento_Controller extends Controller
     *                     @OA\Property(property="marca", type="string", example="Marca 1"),
     *                     @OA\Property(property="descripcion", type="string", example="Descripción del emprendimiento 1"),
     *                     @OA\Property(property="estado", type="string", example="A"),
-    *                     @OA\Property(property="id_usuario", type="integer", example=1),
+    *                     @OA\Property(property="id_usuario", type="string", example=1),
     *                     @OA\Property(property="id", type="integer", example=1),
     *                     @OA\Property(property="created_at", type="string", format="date-time", example="2023-10-01T00:00:00Z")
     *             ),
@@ -497,7 +497,7 @@ class emprendimiento_Controller extends Controller
             'marca' => 'string|max:255',
             'descripcion' => 'string',
             'estado' => 'in:A,IN',
-            'id_usuario' => 'integer|exists:usuario,id'
+            'id_usuario' => 'string|exists:usuario,id'
         ]);
 
         if ($validator->fails()) {

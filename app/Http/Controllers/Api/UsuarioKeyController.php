@@ -11,7 +11,7 @@ class UsuarioKeyController extends Controller
 {   
     public function index()
     {
-        $usuarios_key = UsuarioKey::all();
+        $usuarios_key = UsuarioKey::all(); 
 
         if($usuarios_key->isEmpty()){
             return response()->json(['message' => 'no hay usuarios registrados'], 400);
