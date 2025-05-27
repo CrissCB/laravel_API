@@ -16,7 +16,4 @@ class KeycloakRole extends Model
         'description',
         'realm_id'
     ];
-
-
-
 }

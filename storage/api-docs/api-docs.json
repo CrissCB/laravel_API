@@ -706,7 +706,7 @@
                                         "example": "A"
                                     },
                                     "id_usuario": {
-                                        "type": "integer",
+                                        "type": "string",
                                         "example": 1
                                     }
                                 },
@@ -749,7 +749,7 @@
                                                     "example": "A"
                                                 },
                                                 "id_usuario": {
-                                                    "type": "integer",
+                                                    "type": "string",
                                                     "example": 1
                                                 },
                                                 "created_at": {
@@ -1213,7 +1213,7 @@
                                         "example": "A"
                                     },
                                     "id_usuario": {
-                                        "type": "integer",
+                                        "type": "string",
                                         "example": 1
                                     }
                                 },
@@ -1256,7 +1256,7 @@
                                                     "example": "A"
                                                 },
                                                 "id_usuario": {
-                                                    "type": "integer",
+                                                    "type": "string",
                                                     "example": 1
                                                 },
                                                 "id": {
