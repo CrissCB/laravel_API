@@ -25,6 +25,7 @@ return new class extends Migration
             // Claves foráneas sin cascada
             $table->foreign('id_cat')->references('id_cat')->on('categoria_emprendimiento');
             $table->foreign('id_usuario')->references('identificacion')->on('usuario');
+            $table->unique('id_usuario', 'unique_id_usuario');
         });
 
         DB::statement("ALTER TABLE emprendimiento ADD CONSTRAINT chk_estado CHECK (estado IN ('A', 'IN'));");
