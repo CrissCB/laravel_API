@@ -39,8 +39,10 @@ class emprendimiento_Controller extends Controller
         $emprendimiento = Emprendimiento::all();
 
         $data = [
-            'emprendimiento' => $emprendimiento,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Lista de emprendimientos',
+            'code' => 200,
+            'data' => $emprendimiento,
         ];
 
         return response()->json($data, 200);
@@ -93,16 +95,20 @@ class emprendimiento_Controller extends Controller
 
         if (!$emprendimiento) {
             $data = [
+                'status' => 'error',
                 'message' => 'Emprendimiento no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
         }
 
         $data = [
-            'Emprendimiento' => $emprendimiento,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Emprendimiento encontrado',
+            'code' => 200,
+            'data' => $emprendimiento
         ];
 
         return response()->json($data, 200);
@@ -181,9 +187,10 @@ class emprendimiento_Controller extends Controller
 
         if ($validator->fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la base de datos',
-                'Error' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors(),
             ];
 
             return response()->json($data, 400);
@@ -200,16 +207,20 @@ class emprendimiento_Controller extends Controller
 
         if (!$emprendimiento) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error al crear el emprendimiento',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
 
             return response()->json($data, 500);
         }
 
         $data = [
-            'Emprendimiento' => $emprendimiento,
-            'status' => 201
+            'status' => 'success',
+            'message' => 'Emprendimiento creado correctamente',
+            'code' => 201,
+            'data' => $emprendimiento
         ];
 
         return response()->json($data, 201);
@@ -253,8 +264,10 @@ class emprendimiento_Controller extends Controller
 
         if (!$emprendimiento) {
             $data = [
+                'status' => 'error',
                 'message' => 'Emprendimiento no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
@@ -263,8 +276,10 @@ class emprendimiento_Controller extends Controller
         $emprendimiento->delete();
 
         $data = [
+            'status' => 'success',
             'message' => 'Emprendimiento eliminado correctamente',
-            'status' => 200
+            'code' => 200,
+            'data' => null
         ];
 
         return response()->json($data, 200);
@@ -353,8 +368,10 @@ class emprendimiento_Controller extends Controller
 
         if (!$emprendimiento) {
             $data = [
+                'status' => 'error',
                 'message' => 'Emprendimiento no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
@@ -370,9 +387,10 @@ class emprendimiento_Controller extends Controller
 
         if ($validator->fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la base de datos',
-                'Error' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors()
             ];
 
             return response()->json($data, 400);
@@ -388,16 +406,20 @@ class emprendimiento_Controller extends Controller
 
         if (!$emprendimiento) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error al actualizar el emprendimiento',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
 
             return response()->json($data, 500);
         }
 
         $data = [
-            'Emprendimiento actualizado' => $emprendimiento,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Emprendimiento actualizado',
+            'code' => 200,
+            'data' => $emprendimiento,
         ];
 
         return response()->json($data, 200);
@@ -485,8 +507,10 @@ class emprendimiento_Controller extends Controller
 
         if (!$emprendimiento) {
             $data = [
+                'status' => 'error',
                 'message' => 'Emprendimiento no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
@@ -502,9 +526,10 @@ class emprendimiento_Controller extends Controller
 
         if ($validator->fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la base de datos',
-                'Error' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors(),
             ];
 
             return response()->json($data, 400);
@@ -514,16 +539,20 @@ class emprendimiento_Controller extends Controller
 
         if (!$emprendimiento) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error al actualizar el emprendimiento',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
 
             return response()->json($data, 500);
         }
 
         $data = [
-            'Emprendimiento actualizado parcialmente' => $emprendimiento,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Emprendimiento actualizado parcialmente',
+            'code' => 200,
+            'data' => $emprendimiento
         ];
 
         return response()->json($data, 200);

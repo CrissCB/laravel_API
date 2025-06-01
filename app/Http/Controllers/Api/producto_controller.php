@@ -46,8 +46,10 @@ class producto_controller extends Controller
         $productos = Producto::all();
 
         $data = [
-            'productos' => $productos,
-            'status' => 200
+            'status' => '200',
+            'message' => 'Lista de productos obtenida exitosamente',
+            'code' => 200,
+            'data' => $productos,
         ];
 
         return response()->json($data, 200);
@@ -104,16 +106,20 @@ class producto_controller extends Controller
 
         if (!$producto) {
             $data = [
+                'status' => 'error',
                 'message' => 'Producto no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
         }
 
         $data = [
-            'producto' => $producto,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Producto encontrado',
+            'code' => 200,
+            'data' => $producto
         ];
 
         return response()->json($data, 200);
@@ -206,9 +212,10 @@ class producto_controller extends Controller
 
         if ($validator->fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error de validación',
-                'errors' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors()
             ];
 
             return response()->json($data, 400);
@@ -218,17 +225,20 @@ class producto_controller extends Controller
 
         if (!$producto) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error al crear el producto',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
 
             return response()->json($data, 500);
         }
 
         $data = [
+            'status' => 'success',
             'message' => 'Producto creado exitosamente',
-            'producto' => $producto,
-            'status' => 201
+            'code' => 201,
+            'data' => $producto
         ];
 
         return response()->json($data, 201);
@@ -272,8 +282,10 @@ class producto_controller extends Controller
 
         if (!$producto) {
             $data = [
+                'status' => 'error',
                 'message' => 'Producto no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
@@ -282,8 +294,10 @@ class producto_controller extends Controller
         $producto->delete();
 
         $data = [
+            'status' => 'success',
             'message' => 'Producto eliminado exitosamente',
-            'status' => 200
+            'code' => 200,
+            'data' => null
         ];
 
         return response()->json($data, 200);
@@ -381,8 +395,10 @@ class producto_controller extends Controller
 
         if (!$producto) {
             $data = [
+                'status' => 'error',
                 'message' => 'Producto no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
@@ -404,9 +420,10 @@ class producto_controller extends Controller
 
         if ($validator->fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error de validación',
-                'errors' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors()
             ];
 
             return response()->json($data, 400);
@@ -416,17 +433,20 @@ class producto_controller extends Controller
 
         if (!$producto) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error al actualizar el producto',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
 
             return response()->json($data, 500);
         }
 
         $data = [
+            'status' => 'success',
             'message' => 'Producto actualizado exitosamente',
-            'producto' => $producto,
-            'status' => 200
+            'code' => 200,
+            'data' => $producto
         ];
 
         return response()->json($data, 200);
@@ -523,8 +543,10 @@ class producto_controller extends Controller
 
         if (!$producto) {
             $data = [
+                'status' => 'error',
                 'message' => 'Producto no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
@@ -546,9 +568,10 @@ class producto_controller extends Controller
 
         if ($validator->fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error de validación',
-                'errors' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors()
             ];
 
             return response()->json($data, 400);
@@ -558,17 +581,20 @@ class producto_controller extends Controller
 
         if (!$producto) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error al actualizar el producto',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
 
             return response()->json($data, 500);
         }
 
         $data = [
+            'status' => 'success',
             'message' => 'Producto actualizado parcialmente exitosamente',
-            'producto' => $producto,
-            'status' => 200
+            'code' => 200,
+            'data' => $producto
         ];
 
         return response()->json($data, 200);

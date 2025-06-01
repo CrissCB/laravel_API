@@ -20,8 +20,8 @@ use App\Http\Controllers\InteraccionController;
 
 use App\Http\Middleware\KeycloakAuth;
 
-// Route::post('/token-exchange', [AuthController::class, 'exchangeToken']);
 Route::post('/token-exchange', [AuthController::class, 'exchangeToken']);
+
 // Categoria Productos -> rutas
 Route::middleware([KeycloakAuth::class])->group(function () {
     Route::get('/categoria_productos', [catproducto_Controller::class, 'index']);
