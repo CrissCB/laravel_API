@@ -89,9 +89,9 @@ class emprendimiento_Controller extends Controller
     *     )
     * )
     */
-    public function show($nombre)
+    public function show($identificacion)
     {
-        $emprendimiento = Emprendimiento::where('nombre', $nombre)->first();
+        $emprendimiento = Emprendimiento::where('id_usuario', $identificacion)->first();
 
         if (!$emprendimiento) {
             $data = [
