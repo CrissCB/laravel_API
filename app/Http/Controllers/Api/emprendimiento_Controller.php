@@ -362,9 +362,9 @@ class emprendimiento_Controller extends Controller
     *     )
     * )
     */
-    public function update(Request $request, $id_cat)
+    public function update(Request $request, $id_usuario)
     {
-        $emprendimiento = Emprendimiento::where('id_cat', $id_cat)->first();
+        $emprendimiento = Emprendimiento::where('id_usuario', $id_usuario)->first(); 
 
         if (!$emprendimiento) {
             $data = [
@@ -378,11 +378,11 @@ class emprendimiento_Controller extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            // 'id_cat' => 'required|integer|exists:categoria_emprendimiento,id_cat',
+            'id_cat' => 'required|integer|exists:categoria_emprendimiento,id_cat',
+            'nombre' => 'required|string|max:255|unique:emprendimiento,nombre',
             'marca' => 'nullable|string|max:255',
             'descripcion' => 'nullable|string',
-            'estado' => 'required|in:A,IN',
-            // 'id_usuario' => 'required|integer|exists:usuario,id'
+            'estado' => 'required|in:A,IN'
         ]);
 
         if ($validator->fails()) {
@@ -398,10 +398,10 @@ class emprendimiento_Controller extends Controller
 
         $emprendimiento->update([
             'id_cat' => $request->id_cat,
+            'nombre' => $request->nombre,
             'marca' => $request->marca,
             'descripcion' => $request->descripcion,
-            'estado' => $request->estado,
-            'id_usuario' => $request->id_usuario
+            'estado' => $request->estado
         ]);
 
         if (!$emprendimiento) {
@@ -517,11 +517,11 @@ class emprendimiento_Controller extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'id_cat' => 'integer|exists:categoria_emprendimiento,id_cat',
-            'marca' => 'string|max:255',
-            'descripcion' => 'string',
-            'estado' => 'in:A,IN',
-            'id_usuario' => 'string|exists:usuario,id'
+            'id_cat' => 'required|integer|exists:categoria_emprendimiento,id_cat',
+            'nombre' => 'required|string|max:255|unique:emprendimiento,nombre',
+            'marca' => 'nullable|string|max:255',
+            'descripcion' => 'nullable|string',
+            'estado' => 'required|in:A,IN'
         ]);
 
         if ($validator->fails()) {
@@ -535,7 +535,7 @@ class emprendimiento_Controller extends Controller
             return response()->json($data, 400);
         }
 
-        $emprendimiento->update($request->only(['id_cat', 'marca', 'descripcion', 'estado', 'id_usuario']));
+        $emprendimiento->update($request->only(['id_cat', 'nombre', 'marca', 'descripcion', 'estado']));
 
         if (!$emprendimiento) {
             $data = [

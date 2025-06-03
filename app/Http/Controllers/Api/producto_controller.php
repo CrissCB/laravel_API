@@ -125,6 +125,31 @@ class producto_controller extends Controller
         return response()->json($data, 200);
     }
 
+    public function getIdEmprendimiento($id)
+    {
+        $producto = Producto::where('id_emprendimiento', $id)->get();
+
+        if (!$producto) {
+            $data = [
+                'status' => 'error',
+                'message' => 'Productos no encontrado',
+                'code' => 404,
+                'data' => null
+            ];
+
+            return response()->json($data, 404);
+        }
+
+        $data = [
+            'status' => 'success',
+            'message' => 'Productos encontrado',
+            'code' => 200,
+            'data' => $producto
+        ];
+
+        return response()->json($data, 200);
+    }
+
     /**
     * @OA\Post(
     *     path="/api/producto",

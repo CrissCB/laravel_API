@@ -115,6 +115,30 @@ class catproducto_Controller extends Controller
         return response()->json($data, 200);
     }
 
+    public function showId($id){
+        $catProducto = Categoria_producto::where('id_cat',$id)->first();
+
+        if (!$catProducto) {
+            $data = [
+                'status' => 'error',
+                'message' => 'Categoría no encontrada',
+                'code' => 404,
+                'data' => null
+            ];
+
+            return response()->json($data, 404);
+        }
+
+        $data = [
+            'status' => 'success',
+            'message' => 'Categoría de producto encontrada',
+            'code' => 200,
+            'data' => $catProducto
+        ];
+
+        return response()->json($data, 200);
+    }
+
     /**
     * @OA\Post(
     *     path="/api/categoria_productos",
