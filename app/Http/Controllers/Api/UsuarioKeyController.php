@@ -14,7 +14,13 @@ class UsuarioKeyController extends Controller
         $usuarios_key = UsuarioKey::all(); 
 
         if($usuarios_key->isEmpty()){
-            return response()->json(['message' => 'no hay usuarios registrados'], 400);
+            $data = [
+                'status' => 'error',
+                'message' => 'No hay usuarios registrados',
+                'code' => 400,
+                'data' => null
+            ];
+            return response()->json($data, 400);
         }
 
         // El accesor getIdentificacionAttribute ya hace el trabajo
@@ -26,7 +32,13 @@ class UsuarioKeyController extends Controller
         $usuario_key = UsuarioKey::find($id);
         
         if(!$usuario_key){
-            return response()->json(['message' => 'Usuario no encontrado'], 404);
+            $data = [
+                'status' => 'error',
+                'message' => 'Usuario no encontrado',
+                'code' => 404,
+                'data' => null
+            ];
+            return response()->json($data, 404);
         }
         
         return response()->json($usuario_key, 200);

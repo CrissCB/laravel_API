@@ -21,7 +21,13 @@ class AuthController extends Controller
         ]);
 
         if ($response->failed()){
-            return response()->json(['error' => 'Token exchange failed'], 401);
+            $data = [
+                'status' => 'error',
+                'message' => 'Token exchange failed',
+                'code' => 401,
+                'data' => null
+            ];
+            return response()->json($data, 401);
         }
 
         return $response->json();
