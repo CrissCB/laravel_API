@@ -52,9 +52,22 @@ class PublicacionesController extends Controller
         $publicaciones = Publicacion::all();
 
         if($publicaciones->isEmpty()){
-            return response()->json(['message' => 'no hay publicaciones registradas'] , 400);
+            $data = [
+                'status' => 'error',
+                'message' => 'no hay publicaciones registradas',
+                'code' => 400,
+                'data' => null
+            ];
+            return response()->json($data, 400);
         }
-        return response()->json($publicaciones, 200);
+
+        $data = [
+            'status' => 'success',
+            'message' => 'Lista de publicaciones',
+            'code' => 200,
+            'data' => $publicaciones
+        ];
+        return response()->json($data, 200);
     }
 
     /**
@@ -113,9 +126,10 @@ class PublicacionesController extends Controller
 
         if ($validator->fails()){
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la validacion de los datos',
-                'errors' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors(),
             ];
             return response()->json($data, 400); 
         }
@@ -131,11 +145,20 @@ class PublicacionesController extends Controller
         ]);
         if(!$publicacion){
             $data = [
+                'status' => 'error',
                 'message' => 'Error al crear publicacion',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
-        return response()->json($data,201);
+        return response()->json($data,500);
         }
+
+        $data = [
+            'message' => 'Publicación creada',
+            'status' => 201,
+            'publicacion' => $publicacion
+        ];
+        return response()->json($data, 201);
     }
 
     /**
@@ -175,14 +198,18 @@ class PublicacionesController extends Controller
 
         if(!$publicacion){
             $data= [
+                'status' => 'error',
                 'message' => 'Publicacion no encontrada',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
         $data = [
-            'publicacion' => $publicacion,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Publicacion encontrada',
+            'code' => 200,
+            'data' => $publicacion
         ];
         return response()->json($data,200);
     }
@@ -223,16 +250,20 @@ class PublicacionesController extends Controller
         $publicacion = Publicacion::find($id);
         if(!$publicacion){
             $data= [
+                'status' => 'error',
                 'message' => 'Publicacion no encontrada',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
 
         $publicacion->delete();
         $data= [
+            'status' => 'success',
             'message' => 'Publicacion Eliminada',
-            'status' => 200
+            'code' => 200,
+            'data' => null
         ];
         return response()->json($data,200);
     }
@@ -296,8 +327,10 @@ class PublicacionesController extends Controller
         $publicacion = Publicacion::find($id);
         if(!$publicacion){
             $data= [
+                'status' => 'error',
                 'message' => 'Publicacion no encontrada',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
@@ -310,11 +343,12 @@ class PublicacionesController extends Controller
 
         if ($validator->fails()){
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la validacion de los datos',
-                'errors' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors(),
             ];
-            return response()->json($data, 400); 
+            return response()->json($data, 400);
         }
 
         $publicacion -> titulo = $request->titulo;
@@ -327,9 +361,10 @@ class PublicacionesController extends Controller
 
         $publicacion->save();
         $data= [
+            'status' => 'success',
             'message' => 'Publicacion Actualizada',
-            'publicacion' => $publicacion,
-            'status' => 200
+            'code' => 200,
+            'data' => $publicacion
         ];
         return response()->json($data,200);
     }
@@ -393,8 +428,10 @@ class PublicacionesController extends Controller
         $publicacion = Publicacion::find($id);
         if(!$publicacion){
             $data= [
+                'status' => 'error',
                 'message' => 'Publicacion no encontrada',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
@@ -441,9 +478,10 @@ class PublicacionesController extends Controller
     
         $publicacion->save();
         $data = [
+            'status' => 'success',
             'message' => 'Publicacion Actualizado',
-            'publicacion' => $publicacion,
-            'status' => 200
+            'code' => 200,
+            'data' => $publicacion
         ];
 
         return response()->json($data,200);

@@ -42,9 +42,23 @@ class Categoria_EmprendimientoController extends Controller
         $categorias = Categoria_Emprendimiento::all();
 
         if($categorias->isEmpty()){
-            return response()->json(['message' => 'no hay categorias registradas'] , 400);
+            $data = [
+                'status' => 'error',
+                'message' => 'no hay categorias registradas',
+                'code' => 400,
+                'data' => null
+            ];
+            return response()->json($data, 400);
         }
-        return response()->json($categorias, 200);
+
+        $data = [
+            'status' => 'success',
+            'message' => 'Categorias obtenidas exitosamente',
+            'code' => 200,
+            'data' => $categorias
+        ];
+
+        return response()->json($data, 200);
     }
 
     /**
@@ -102,12 +116,14 @@ class Categoria_EmprendimientoController extends Controller
 
         if ($validator->fails()){
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la validacion de los datos',
-                'errors' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors()
             ];
             return response()->json($data, 400); 
         }
+
         $categoria_emprendimiento = Categoria_Emprendimiento::create([
 
             'estado'=> $request->estado,
@@ -115,13 +131,25 @@ class Categoria_EmprendimientoController extends Controller
             'nombre'=> $request->nombre
 
         ]);
+
         if(!$categoria_emprendimiento){
             $data = [
+                'status' => 'error',
                 'message' => 'Error al crear categoria ',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
-        return response()->json($data,201);
+            return response()->json($data,500);
         }
+
+        $data = [
+            'status' => 'success',
+            'message' => 'Categoria creada con exito',
+            'code' => 201,
+            'data' => $categoria_emprendimiento
+        ];
+
+        return response()->json($data, 201);
     }
 
     /**
@@ -166,14 +194,18 @@ class Categoria_EmprendimientoController extends Controller
 
         if(!$categoria_emprendimiento){
             $data= [
+                'status' => 'error',
                 'message' => 'Categoria no encontrada',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
         $data = [
-            'categoria_emprendimiento' => $categoria_emprendimiento,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Categoria encontrada',
+            'code' => 200,
+            'data' => $categoria_emprendimiento,
         ];
         return response()->json($data,200);
     }
@@ -214,16 +246,20 @@ class Categoria_EmprendimientoController extends Controller
         $categoria_emprendimiento = Categoria_Emprendimiento::find($id);
         if(!$categoria_emprendimiento){
             $data= [
+                'status' => 'error',
                 'message' => 'Categoria no encontrada',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
 
         $categoria_emprendimiento->delete();
         $data= [
+            'status' => 'success',
             'message' => 'Categoria Eliminada',
-            'status' => 200
+            'code' => 200,
+            'data' => null
         ];
         return response()->json($data,200);
     }
@@ -280,8 +316,10 @@ class Categoria_EmprendimientoController extends Controller
         $categoria_emprendimiento = Categoria_Emprendimiento::find($id);
         if(!$categoria_emprendimiento){
             $data= [
+                'status' => 'error',
                 'message' => 'Categoria no encontrada',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
@@ -295,9 +333,10 @@ class Categoria_EmprendimientoController extends Controller
 
         if ($validator->fails()){
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la validacion de los datos',
-                'errors' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors(),
             ];
             return response()->json($data, 400); 
         }
@@ -309,9 +348,10 @@ class Categoria_EmprendimientoController extends Controller
 
         $categoria_emprendimiento->save();
         $data= [
+            'status' => 'success',
             'message' => 'Categoria Actualizada',
-            'categoria_emprendimiento' => $categoria_emprendimiento,
-            'status' => 200
+            'code' => 200,
+            'data' => $categoria_emprendimiento,
         ];
         return response()->json($data,200);
     }
@@ -359,8 +399,10 @@ class Categoria_EmprendimientoController extends Controller
         $categoria_emprendimiento = Categoria_Emprendimiento::find($id);
         if(!$categoria_emprendimiento){
             $data= [
+                'status' => 'error',
                 'message' => 'Categoria no encontrada',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
@@ -387,9 +429,10 @@ class Categoria_EmprendimientoController extends Controller
     
         $categoria_emprendimiento->save();
         $data = [
+            'status' => 'success',
             'message' => 'Categoria Actualizada',
-            'categoria_emprendimiento' => $categoria_emprendimiento,
-            'status' => 200
+            'code' => 200,
+            'data' => $categoria_emprendimiento,
         ];
 
         return response()->json($data,200);

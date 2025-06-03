@@ -38,9 +38,21 @@ class UsuarioController extends Controller
         $usuarios = Usuario::all();
 
         if($usuarios->isEmpty()){
-            return response()->json(['message' => 'no hay usuarios registrados'] , 400);
+            $data = [
+                'status' => 'error',
+                'message' => 'no hay usuarios registrados',
+                'code' => 400,
+                'data' => null
+            ];
+            return response()->json($data, 400);
         }
-        return response()->json($usuarios, 200);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Usuarios obtenidos exitosamente',
+            'code' => 200,
+            'data' => $usuarios
+        ], 200);
     }
 
 
@@ -106,9 +118,10 @@ class UsuarioController extends Controller
 
         if ($validator->fails()){
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la validacion de los datos',
-                'errors' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors()
             ];
             return response()->json($data, 400); 
         }
@@ -129,11 +142,21 @@ class UsuarioController extends Controller
         ]);
         if(!$usuario){
             $data = [
+                'status' => 'error',
                 'message' => 'Error al crear usuario',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
-        return response()->json($data,201);
+        return response()->json($data,500);
         }
+
+        $data = [
+            'status' => 'success',
+            'message' => 'Usuario creado con éxito',
+            'code' => 201,
+            'data' => $usuario
+        ];
+        return response()->json($data, 201);
     }
 
 
@@ -170,18 +193,22 @@ class UsuarioController extends Controller
 
     public function show($id)
     {
-        $usuario = Usuario::find($id);
+        $usuario = Usuario::where('identificacion', $id)->first();
 
         if(!$usuario){
             $data= [
+                'status' => 'error',
                 'message' => 'Usuario no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
         $data = [
-            'usuario' => $usuario,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Usuario encontrado',
+            'code' => 200,
+            'data' => $usuario
         ];
         return response()->json($data,200);
     }
@@ -222,16 +249,20 @@ class UsuarioController extends Controller
         $usuario = Usuario::find($id);
         if(!$usuario){
             $data= [
+                'status' => 'error',
                 'message' => 'Usuario no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
 
         $usuario->delete();
         $data= [
+            'status' => 'success',
             'message' => 'Usuario Eliminado',
-            'status' => 200
+            'code' => 200,
+            'data' => null
         ];
         return response()->json($data,200);
     }
@@ -300,8 +331,10 @@ class UsuarioController extends Controller
         $usuario = Usuario::find($id);
         if(!$usuario){
             $data= [
+                'status' => 'error',
                 'message' => 'Usuario no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
@@ -317,9 +350,10 @@ class UsuarioController extends Controller
 
         if ($validator->fails()){
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la validacion de los datos',
-                'errors' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors()
             ];
             return response()->json($data, 400); 
         }
@@ -339,9 +373,10 @@ class UsuarioController extends Controller
 
         $usuario->save();
         $data= [
+            'status' => 'success',
             'message' => 'Usuario Actualizado',
-            'usuario' => $usuario,
-            'status' => 200
+            'code' => 200,
+            'data' => $usuario
         ];
         return response()->json($data,200);
     }
@@ -403,8 +438,10 @@ class UsuarioController extends Controller
         $usuario = Usuario::find($id);
         if(!$usuario){
             $data= [
+                'status' => 'error',
                 'message' => 'Usuario no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
@@ -420,9 +457,10 @@ class UsuarioController extends Controller
 
         if ($validator->fails()){
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la validacion de los datos',
-                'errors' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors()
             ];
             return response()->json($data, 400); 
         }
@@ -450,9 +488,10 @@ class UsuarioController extends Controller
 
         $usuario->save();
         $data = [
+            'status' => 'success',
             'message' => 'Usuario Actualizado',
-            'usuario' => $usuario,
-            'status' => 200
+            'code' => 200,
+            'data' => $usuario
         ];
 
         return response()->json($data,200);

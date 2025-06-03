@@ -47,9 +47,22 @@ class InteraccionController extends Controller
         $interacciones = Interaccion::all();
 
         if($interacciones->isEmpty()){
-            return response()->json(['message' => 'no hay interacciones registradas'] , 400);
+            $data = [
+                'status' => 'error',
+                'message' => 'no hay interacciones registradas',
+                'code' => 400,
+                'data' => null
+            ];
+            return response()->json($data, 400);
         }
-        return response()->json($interacciones, 200);
+
+        $data = [
+            'status' => 'success',
+            'message' => 'Interacciones obtenidas exitosamente',
+            'code' => 200,
+            'data' => $interacciones
+        ];
+        return response()->json($data, 200);
     }
 
     /**
@@ -120,9 +133,10 @@ class InteraccionController extends Controller
 
         if ($validator->fails()){
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la validacion de los datos',
-                'errors' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors()
             ];
             return response()->json($data, 400); 
         }
@@ -136,13 +150,25 @@ class InteraccionController extends Controller
             'calificacion'=> $request->calificacion
 
         ]);
+
         if(!$interaccion){
             $data = [
+                'status' => 'error',
                 'message' => 'Error al crear interaccion',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
-        return response()->json($data,201);
+        return response()->json($data,500);
         }
+
+        $data = [
+            'status' => 'success',
+            'message' => 'Interacción creada exitosamente',
+            'code' => 201,
+            'interaccion' => $interaccion
+        ];
+
+        return response()->json($data, 201);
     }
 
     /**
@@ -194,14 +220,18 @@ class InteraccionController extends Controller
 
         if(!$interaccion){
             $data= [
+                'status' => 'error',
                 'message' => 'Interaccion no encontrada',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
         $data = [
-            'interaccion' => $interaccion,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Interacción obtenida exitosamente',
+            'code' => 200,
+            'data' => $interaccion
         ];
         return response()->json($data,200);
     }
@@ -242,16 +272,20 @@ class InteraccionController extends Controller
         $interaccion = Interaccion::find($id);
         if(!$interaccion){
             $data= [
+                'status' => 'error',
                 'message' => 'Interaccion no encontrada',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
 
         $interaccion->delete();
         $data= [
+            'status' => 'success',
             'message' => 'Interaccion Eliminada',
-            'status' => 200
+            'code' => 200,
+            'data' => null
         ];
         return response()->json($data,200);
     }
@@ -326,8 +360,10 @@ class InteraccionController extends Controller
         $interaccion = Interaccion::find($id);
         if(!$interaccion){
             $data= [
+                'status' => 'error',
                 'message' => 'Interaccion no encontrada',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
@@ -342,11 +378,12 @@ class InteraccionController extends Controller
 
         if ($validator->fails()){
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la validacion de los datos',
-                'errors' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors()
             ];
-            return response()->json($data, 400); 
+            return response()->json($data, 400);
         }
 
         $interaccion -> id_cliente = $request->id_cliente;
@@ -357,9 +394,10 @@ class InteraccionController extends Controller
 
         $interaccion->save();
         $data= [
+            'status' => 'success',
             'message' => 'Interaccion Actualizada',
-            'interaccion' => $interaccion,
-            'status' => 200
+            'code' => 200,
+            'data' => $interaccion,
         ];
         return response()->json($data,200);
     }
@@ -425,8 +463,10 @@ class InteraccionController extends Controller
         $interaccion = Interaccion::find($id);
         if(!$interaccion){
             $data= [
+                'status' => 'error',
                 'message' => 'Interaccion no encontrada',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
@@ -454,9 +494,10 @@ class InteraccionController extends Controller
 
         $interaccion->save();
         $data = [
+            'status' => 'success',
             'message' => 'Interaccion Actualizada',
-            'interaccion' => $interaccion,
-            'status' => 200
+            'code' => 200,
+            'data' => $interaccion
         ];
 
         return response()->json($data,200);

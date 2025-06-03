@@ -38,8 +38,10 @@ class feria_emprendimiento_controller extends Controller
         $feria_emprendimiento = Feria_emprendimiento::all();
 
         $data = [
-            'feria_emprendimiento' => $feria_emprendimiento,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Lista de Ferias emprendimiento obtenida correctamente',
+            'code' => 200,
+            'data' => $feria_emprendimiento
         ];
 
         return response()->json($data, 200);
@@ -87,16 +89,20 @@ class feria_emprendimiento_controller extends Controller
 
         if (!$feria_emprendimiento) {
             $data = [
-                'message' => 'Feria-emprendimiento no encontrado',
-                'status' => 404
+                'status' => 'error',
+                'message' => 'Feria emprendimiento no encontrado',
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
         }
 
         $data = [
-            'Feria-emprendimiento' => $feria_emprendimiento,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Feria emprendimiento encontrada correctamente',
+            'code' => 200,
+            'data' => $feria_emprendimiento
         ];
 
         return response()->json($data, 200);
@@ -170,9 +176,10 @@ class feria_emprendimiento_controller extends Controller
 
         if ($validator->fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la base de datos',
-                'Error' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors(), 
             ];
 
             return response()->json($data, 400);
@@ -182,17 +189,20 @@ class feria_emprendimiento_controller extends Controller
 
         if (!$feria_emprendimiento) {
             $data = [
-                'message' => 'Error al crear el Feria-emprendimiento',
-                'status' => 500
+                'status' => 'error',
+                'message' => 'Error al crear el Feria emprendimiento',
+                'code' => 500,
+                'data' => null
             ];
 
             return response()->json($data, 500);
         }
 
         $data = [
-            'message' => 'Feria-emprendimiento creado correctamente',
-            'Feria-emprendimiento' => $feria_emprendimiento,
-            'status' => 201
+            'status' => 'success',
+            'message' => 'Feria emprendimiento creado correctamente',
+            'code' => 201,
+            'data' => $feria_emprendimiento
         ];
 
         return response()->json($data, 201);
@@ -236,8 +246,10 @@ class feria_emprendimiento_controller extends Controller
 
         if (!$feria_emprendimiento) {
             $data = [
-                'message' => 'Feria-emprendimiento no encontrado',
-                'status' => 404
+                'status' => 'error',
+                'message' => 'Feria emprendimiento no encontrado',
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
@@ -246,8 +258,10 @@ class feria_emprendimiento_controller extends Controller
         $feria_emprendimiento->delete();
 
         $data = [
-            'message' => 'Feria-emprendimiento eliminado correctamente',
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Feria emprendimiento eliminado correctamente',
+            'code' => 200,
+            'data' => null
         ];
 
         return response()->json($data, 200);
@@ -327,8 +341,10 @@ class feria_emprendimiento_controller extends Controller
 
         if (!$feria_emprendimiento) {
             $data = [
-                'message' => 'Feria-emprendimiento no encontrado',
-                'status' => 404
+                'status' => 'error',
+                'message' => 'Feria emprendimiento no encontrado',
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
@@ -349,9 +365,10 @@ class feria_emprendimiento_controller extends Controller
 
         if ($validator->fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la base de datos',
-                'Error' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors(),
             ];
 
             return response()->json($data, 400);
@@ -361,17 +378,20 @@ class feria_emprendimiento_controller extends Controller
 
         if (!$feria_emprendimiento) {
             $data = [
-                'message' => 'Error al actualizar el Feria-emprendimiento',
-                'status' => 500
+                'status' => 'error',
+                'message' => 'Error al actualizar el Feria emprendimiento',
+                'code' => 500,
+                'data' => null
             ];
 
             return response()->json($data, 500);
         }
 
         $data = [
-            'message' => 'Feria-emprendimiento actualizado correctamente',
-            'Feria-emprendimiento' => $feria_emprendimiento,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Feria emprendimiento actualizado correctamente',
+            'code' => 200,
+            'data' => $feria_emprendimiento,
         ];
 
         return response()->json($data, 200);
@@ -449,8 +469,10 @@ class feria_emprendimiento_controller extends Controller
 
         if (!$feria_emprendimiento) {
             $data = [
+                'status' => 'error',
                 'message' => 'Feria-emprendimiento no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
@@ -477,9 +499,10 @@ class feria_emprendimiento_controller extends Controller
 
         if ($validator->fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la base de datos',
-                'Error' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors(),
             ];
 
             return response()->json($data, 400);
@@ -489,17 +512,20 @@ class feria_emprendimiento_controller extends Controller
 
         if (!$feria_emprendimiento) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error al actualizar el Feria-emprendimiento',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
 
             return response()->json($data, 500);
         }
 
         $data = [
-            'message' => 'Feria-emprendimiento actualizado correctamente',
-            'Feria-emprendimiento' => $feria_emprendimiento,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Feria emprendimiento actualizado correctamente',
+            'code' => 200,
+            'data' => $feria_emprendimiento,
         ];
 
         return response()->json($data, 200);

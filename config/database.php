@@ -97,6 +97,22 @@ return [
             'sslmode' => 'prefer',
         ],
 
+        'pgsql2' => [
+            'driver' => 'pgsql',
+            'url' => env('DB2_URL'),
+            'host' => env('DB2_HOST', '127.0.0.1'),
+            'port' => env('DB2_PORT', '5432'),
+            'database' => env('DB2_DATABASE', 'keycloak_db'),
+            'username' => env('DB2_USERNAME', 'udenar'),
+            'password' => env('DB2_PASSWORD', '123456'),
+            'charset' => env('DB2_CHARSET', 'utf8'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'search_path' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
+
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DB_URL'),

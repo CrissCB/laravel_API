@@ -39,8 +39,10 @@ class emprendimiento_Controller extends Controller
         $emprendimiento = Emprendimiento::all();
 
         $data = [
-            'emprendimiento' => $emprendimiento,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Lista de emprendimientos',
+            'code' => 200,
+            'data' => $emprendimiento,
         ];
 
         return response()->json($data, 200);
@@ -87,22 +89,26 @@ class emprendimiento_Controller extends Controller
     *     )
     * )
     */
-    public function show($nombre)
+    public function show($identificacion)
     {
-        $emprendimiento = Emprendimiento::where('nombre', $nombre)->first();
+        $emprendimiento = Emprendimiento::where('id_usuario', $identificacion)->first();
 
         if (!$emprendimiento) {
             $data = [
+                'status' => 'error',
                 'message' => 'Emprendimiento no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
         }
 
         $data = [
-            'Emprendimiento' => $emprendimiento,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Emprendimiento encontrado',
+            'code' => 200,
+            'data' => $emprendimiento
         ];
 
         return response()->json($data, 200);
@@ -122,7 +128,7 @@ class emprendimiento_Controller extends Controller
     *             @OA\Property(property="marca", type="string", example="Marca 1"),
     *             @OA\Property(property="descripcion", type="string", example="Descripción del emprendimiento 1"),
     *             @OA\Property(property="estado", type="string", example="A"),
-    *             @OA\Property(property="id_usuario", type="integer", example=1),
+    *             @OA\Property(property="id_usuario", type="string", example=1),
     *         )
     *     ),
     *     @OA\Response(
@@ -137,7 +143,7 @@ class emprendimiento_Controller extends Controller
     *                     @OA\Property(property="marca", type="string", example="Marca 1"),
     *                     @OA\Property(property="descripcion", type="string", example="Descripción del emprendimiento 1"),
     *                     @OA\Property(property="estado", type="string", example="A"),
-    *                     @OA\Property(property="id_usuario", type="integer", example=1),
+    *                     @OA\Property(property="id_usuario", type="string", example=1),
     *                     @OA\Property(property="created_at", type="string", format="date-time", example="2023-10-01T00:00:00Z")
     *             ),
     *             @OA\Property(property="status", type="integer", example=201)
@@ -176,14 +182,15 @@ class emprendimiento_Controller extends Controller
             'marca' => 'nullable|string|max:255',
             'descripcion' => 'nullable|string',
             'estado' => 'required|in:A,IN',
-            'id_usuario' => 'required|integer|exists:usuario,id'
+            'id_usuario' => 'required|string|exists:usuario,identificacion'
         ]);
 
         if ($validator->fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la base de datos',
-                'Error' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors(),
             ];
 
             return response()->json($data, 400);
@@ -200,16 +207,20 @@ class emprendimiento_Controller extends Controller
 
         if (!$emprendimiento) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error al crear el emprendimiento',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
 
             return response()->json($data, 500);
         }
 
         $data = [
-            'Emprendimiento' => $emprendimiento,
-            'status' => 201
+            'status' => 'success',
+            'message' => 'Emprendimiento creado correctamente',
+            'code' => 201,
+            'data' => $emprendimiento
         ];
 
         return response()->json($data, 201);
@@ -253,8 +264,10 @@ class emprendimiento_Controller extends Controller
 
         if (!$emprendimiento) {
             $data = [
+                'status' => 'error',
                 'message' => 'Emprendimiento no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
@@ -263,8 +276,10 @@ class emprendimiento_Controller extends Controller
         $emprendimiento->delete();
 
         $data = [
+            'status' => 'success',
             'message' => 'Emprendimiento eliminado correctamente',
-            'status' => 200
+            'code' => 200,
+            'data' => null
         ];
 
         return response()->json($data, 200);
@@ -347,14 +362,16 @@ class emprendimiento_Controller extends Controller
     *     )
     * )
     */
-    public function update(Request $request, $nombre)
+    public function update(Request $request, $id_usuario)
     {
-        $emprendimiento = Emprendimiento::where('nombre', $nombre)->first();
+        $emprendimiento = Emprendimiento::where('id_usuario', $id_usuario)->first(); 
 
         if (!$emprendimiento) {
             $data = [
+                'status' => 'error',
                 'message' => 'Emprendimiento no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
@@ -362,17 +379,18 @@ class emprendimiento_Controller extends Controller
 
         $validator = Validator::make($request->all(), [
             'id_cat' => 'required|integer|exists:categoria_emprendimiento,id_cat',
+            'nombre' => 'required|string|max:255|unique:emprendimiento,nombre',
             'marca' => 'nullable|string|max:255',
             'descripcion' => 'nullable|string',
-            'estado' => 'required|in:A,IN',
-            'id_usuario' => 'required|integer|exists:usuario,id'
+            'estado' => 'required|in:A,IN'
         ]);
 
         if ($validator->fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la base de datos',
-                'Error' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors()
             ];
 
             return response()->json($data, 400);
@@ -380,24 +398,28 @@ class emprendimiento_Controller extends Controller
 
         $emprendimiento->update([
             'id_cat' => $request->id_cat,
+            'nombre' => $request->nombre,
             'marca' => $request->marca,
             'descripcion' => $request->descripcion,
-            'estado' => $request->estado,
-            'id_usuario' => $request->id_usuario
+            'estado' => $request->estado
         ]);
 
         if (!$emprendimiento) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error al actualizar el emprendimiento',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
 
             return response()->json($data, 500);
         }
 
         $data = [
-            'Emprendimiento actualizado' => $emprendimiento,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Emprendimiento actualizado',
+            'code' => 200,
+            'data' => $emprendimiento,
         ];
 
         return response()->json($data, 200);
@@ -423,7 +445,7 @@ class emprendimiento_Controller extends Controller
     *                     @OA\Property(property="marca", type="string", example="Marca 1"),
     *                     @OA\Property(property="descripcion", type="string", example="Descripción del emprendimiento 1"),
     *                     @OA\Property(property="estado", type="string", example="A"),
-    *                     @OA\Property(property="id_usuario", type="integer", example=1)
+    *                     @OA\Property(property="id_usuario", type="string", example=1)
     *         )
     *     ),
     *     @OA\Response(
@@ -438,7 +460,7 @@ class emprendimiento_Controller extends Controller
     *                     @OA\Property(property="marca", type="string", example="Marca 1"),
     *                     @OA\Property(property="descripcion", type="string", example="Descripción del emprendimiento 1"),
     *                     @OA\Property(property="estado", type="string", example="A"),
-    *                     @OA\Property(property="id_usuario", type="integer", example=1),
+    *                     @OA\Property(property="id_usuario", type="string", example=1),
     *                     @OA\Property(property="id", type="integer", example=1),
     *                     @OA\Property(property="created_at", type="string", format="date-time", example="2023-10-01T00:00:00Z")
     *             ),
@@ -485,45 +507,52 @@ class emprendimiento_Controller extends Controller
 
         if (!$emprendimiento) {
             $data = [
+                'status' => 'error',
                 'message' => 'Emprendimiento no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
         }
 
         $validator = Validator::make($request->all(), [
-            'id_cat' => 'integer|exists:categoria_emprendimiento,id_cat',
-            'marca' => 'string|max:255',
-            'descripcion' => 'string',
-            'estado' => 'in:A,IN',
-            'id_usuario' => 'integer|exists:usuario,id'
+            'id_cat' => 'required|integer|exists:categoria_emprendimiento,id_cat',
+            'nombre' => 'required|string|max:255|unique:emprendimiento,nombre',
+            'marca' => 'nullable|string|max:255',
+            'descripcion' => 'nullable|string',
+            'estado' => 'required|in:A,IN'
         ]);
 
         if ($validator->fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la base de datos',
-                'Error' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors(),
             ];
 
             return response()->json($data, 400);
         }
 
-        $emprendimiento->update($request->only(['id_cat', 'marca', 'descripcion', 'estado', 'id_usuario']));
+        $emprendimiento->update($request->only(['id_cat', 'nombre', 'marca', 'descripcion', 'estado']));
 
         if (!$emprendimiento) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error al actualizar el emprendimiento',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
 
             return response()->json($data, 500);
         }
 
         $data = [
-            'Emprendimiento actualizado parcialmente' => $emprendimiento,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Emprendimiento actualizado parcialmente',
+            'code' => 200,
+            'data' => $emprendimiento
         ];
 
         return response()->json($data, 200);

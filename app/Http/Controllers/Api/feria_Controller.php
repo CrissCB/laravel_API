@@ -42,8 +42,10 @@ class feria_Controller extends Controller
         $feria = Feria::all();
 
         $data = [
-            'feria' => $feria,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Lista de ferias obtenida correctamente',
+            'code' => 200,
+            'data' => $feria
         ];
 
         return response()->json($data, 200);
@@ -96,16 +98,20 @@ class feria_Controller extends Controller
 
         if (!$feria) {
             $data = [
+                'status' => 'error',
                 'message' => 'Feria no encontrada',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
         }
 
         $data = [
-            'Feria' => $feria,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Feria encontrada correctamente',
+            'code' => 200,
+            'data' => $feria
         ];
 
         return response()->json($data, 200);
@@ -186,9 +192,10 @@ class feria_Controller extends Controller
 
         if ($validator->fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la base de datos',
-                'Error' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors(),
             ];
 
             return response()->json($data, 400);
@@ -198,16 +205,20 @@ class feria_Controller extends Controller
 
         if (!$feria) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error al crear la feria',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
 
             return response()->json($data, 500);
         }
 
         $data = [
-            'Feria' => $feria,
-            'status' => 201
+            'status' => 'success',
+            'message' => 'Feria creada correctamente',
+            'code' => 201,
+            'data' => $feria
         ];
 
         return response()->json($data, 201);
@@ -251,8 +262,10 @@ class feria_Controller extends Controller
 
         if (!$feria) {
             $data = [
+                'status' => 'error',
                 'message' => 'Feria no encontrada',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
@@ -261,8 +274,10 @@ class feria_Controller extends Controller
         $feria->delete();
 
         $data = [
+            'status' => 'success',
             'message' => 'Feria eliminada correctamente',
-            'status' => 200
+            'code' => 200,
+            'data' => null
         ];
 
         return response()->json($data, 200);
@@ -352,8 +367,10 @@ class feria_Controller extends Controller
 
         if (!$feria) {
             $data = [
+                'status' => 'error',
                 'message' => 'Feria no encontrada',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
@@ -371,9 +388,10 @@ class feria_Controller extends Controller
 
         if ($validator->fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la base de datos',
-                'Error' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors()
             ];
 
             return response()->json($data, 400);
@@ -383,16 +401,20 @@ class feria_Controller extends Controller
 
         if (!$feria) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error al actualizar la feria',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
 
             return response()->json($data, 500);
         }
 
         $data = [
-            'Feria' => $feria,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Feria actualizada correctamente',
+            'code' => 200,
+            'data' => $feria
         ];
 
         return response()->json($data, 200);
@@ -481,8 +503,10 @@ class feria_Controller extends Controller
 
         if (!$feria) {
             $data = [
+                'status' => 'error',
                 'message' => 'Feria no encontrada',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
@@ -500,9 +524,10 @@ class feria_Controller extends Controller
 
         if ($validator->fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la base de datos',
-                'Error' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors()
             ];
 
             return response()->json($data, 400);
@@ -512,16 +537,20 @@ class feria_Controller extends Controller
 
         if (!$feria) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error al actualizar la feria',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
 
             return response()->json($data, 500);
         }
 
         $data = [
-            'Feria' => $feria,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Feria actualizada correctamente',
+            'code' => 200,
+            'data' => $feria
         ];
 
         return response()->json($data, 200);

@@ -41,9 +41,22 @@ class ClienteController extends Controller
         $clientes = Cliente::all();
 
         if($clientes->isEmpty()){
-            return response()->json(['message' => 'no hay clientes registrados'] , 400);
+            $data = [
+                'status' => 'error',
+                'message' => 'no hay clientes registrados',
+                'code' => 400,
+                'data' => null
+            ];
+            return response()->json($data, 400);
         }
-        return response()->json($clientes, 200);
+
+        $data = [
+            'status' => 'success',
+            'message' => 'Lista de clientes',
+            'code' => 200,
+            'data' => $clientes
+        ];
+        return response()->json($data, 200);
     }
 
     /**
@@ -113,11 +126,12 @@ class ClienteController extends Controller
 
         if ($validator->fails()){
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la validacion de los datos',
-                'errors' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors()
             ];
-            return response()->json($data, 400); 
+            return response()->json($data, 400);
         }
         $cliente = Cliente::create([
             'nombre'=> $request->nombre,
@@ -133,11 +147,21 @@ class ClienteController extends Controller
         ]);
         if(!$cliente){
             $data = [
+                'status' => 'error',
                 'message' => 'Error al crear cliente',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
-        return response()->json($data,201);
+        return response()->json($data, 500);
         }
+
+        $data = [
+            'status' => 'success',
+            'message' => 'Cliente creado exitosamente',
+            'code' => 201,
+            'data' => $cliente
+        ];
+        return response()->json($data, 201);
     }
 
     /**
@@ -188,14 +212,18 @@ class ClienteController extends Controller
 
         if(!$cliente){
             $data= [
+                'status' => 'error',
                 'message' => 'Cliente no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
         $data = [
-            'cliente' => $cliente,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Cliente encontrado',
+            'code' => 200,
+            'data' => $cliente
         ];
         return response()->json($data,200);
     }
@@ -237,16 +265,20 @@ class ClienteController extends Controller
         $cliente = Cliente::find($id);
         if(!$cliente){
             $data= [
+                'status' => 'error',
                 'message' => 'Cliente no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
 
         $cliente->delete();
         $data= [
+            'status' => 'success',
             'message' => 'Cliente Eliminado',
-            'status' => 200
+            'code' => 200,
+            'data' => null
         ];
         return response()->json($data,200);
     }
@@ -313,8 +345,10 @@ class ClienteController extends Controller
         $cliente = Cliente::find($id);
         if(!$cliente){
             $data= [
+                'status' => 'error',
                 'message' => 'Cliente no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
@@ -330,9 +364,10 @@ class ClienteController extends Controller
 
         if ($validator->fails()){
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la validacion de los datos',
-                'errors' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors()
             ];
             return response()->json($data, 400); 
         }
@@ -349,9 +384,10 @@ class ClienteController extends Controller
 
         $cliente->save();
         $data= [
+            'status' => 'success',
             'message' => 'Cliente Actualizado',
-            'cliente' => $cliente,
-            'status' => 200
+            'code' => 200,
+            'data' => $cliente,
         ];
         return response()->json($data,200);
     }
@@ -411,8 +447,10 @@ class ClienteController extends Controller
         $cliente = Cliente::find($id);
         if(!$cliente){
             $data= [
+                'status' => 'error',
                 'message' => 'Cliente no encontrado',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
         return response()->json($data,404);
         }
@@ -428,9 +466,10 @@ class ClienteController extends Controller
 
         if ($validator->fails()){
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la validacion de los datos',
-                'errors' => $validator->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validator->errors(),
             ];
             return response()->json($data, 400); 
         }
@@ -455,12 +494,12 @@ class ClienteController extends Controller
             $cliente-> email = $request->email;
         }
        
-
         $cliente->save();
         $data = [
+            'status' => 'success',
             'message' => 'Cliente Actualizado',
-            'cliente' => $cliente,
-            'status' => 200
+            'code' => 200,
+            'data' => $cliente,
         ];
 
         return response()->json($data,200);

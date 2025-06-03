@@ -45,9 +45,11 @@ class catproducto_Controller extends Controller
         $catProducto = Categoria_producto::all();
 
         $data = [
-            'categoria de productos' => $catProducto,
-            'status' => 200
-        ];
+            'status' => 'success',
+            'message' => 'Lista de categorías de productos',
+            'code' => 200,
+            'data' => $catProducto,
+        ]; 
         
         return response()->json($data, 200);
     }
@@ -94,16 +96,44 @@ class catproducto_Controller extends Controller
 
         if (!$catProducto) {
             $data = [
-                'message' => 'Categoria no encontrada',
-                'status' => 404
+                'status' => 'error',
+                'message' => 'Categoría no encontrada',
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
         }
 
         $data = [
-            'Categoria de producto' => $catProducto,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Categoría de producto encontrada',
+            'code' => 200,
+            'data' => $catProducto
+        ];
+
+        return response()->json($data, 200);
+    }
+
+    public function showId($id){
+        $catProducto = Categoria_producto::where('id_cat',$id)->first();
+
+        if (!$catProducto) {
+            $data = [
+                'status' => 'error',
+                'message' => 'Categoría no encontrada',
+                'code' => 404,
+                'data' => null
+            ];
+
+            return response()->json($data, 404);
+        }
+
+        $data = [
+            'status' => 'success',
+            'message' => 'Categoría de producto encontrada',
+            'code' => 200,
+            'data' => $catProducto
         ];
 
         return response()->json($data, 200);
@@ -172,9 +202,10 @@ class catproducto_Controller extends Controller
 
         if ($validar -> fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la base de datos',
-                'Error' => $validar->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validar->errors()
             ];
 
             return response()->json($data, 400);
@@ -188,16 +219,20 @@ class catproducto_Controller extends Controller
 
         if (!$catProducto) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error al crear la categoria de producto',
-                'status' => 500
+                'code' => 500,
+                'data' => null
             ];
 
             return response()->json($data, 500);
         }
 
         $data = [
-            'Categoria producto' => $catProducto,
-            'status' => 201
+            'status' => 'success',
+            'message' => 'Categoría de producto creada',
+            'code' => 201,
+            'data' => $catProducto
         ];
 
         return response()->json($data, 201);
@@ -240,8 +275,10 @@ class catproducto_Controller extends Controller
 
         if (!$catProducto) {
             $data = [
+                'status' => 'error',
                 'message' => 'Categoria no encontrada',
-                'status' => 404
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
@@ -250,8 +287,10 @@ class catproducto_Controller extends Controller
         $catProducto->delete();
 
         $data = [
-            'Categoria de producto' => 'eliminada',
-            'status' => 200
+            'status' => 'success',
+            'message' => 'Categoría de producto eliminada',
+            'code' => 200,
+            'data' => null
         ];
 
         return response()->json($data, 200);
@@ -322,8 +361,10 @@ class catproducto_Controller extends Controller
 
         if (!$catProducto) {
             $data = [
-                'message' => 'Categoria no encontrada',
-                'status' => 404
+                'status' => 'error',
+                'message' => 'Categoría no encontrada',
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
@@ -336,9 +377,10 @@ class catproducto_Controller extends Controller
 
         if ($validar -> fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la base de datos',
-                'Error' => $validar->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validar->errors()
             ];
 
             return response()->json($data, 400);
@@ -350,9 +392,10 @@ class catproducto_Controller extends Controller
         $catProducto->save();
 
         $data = [
-            'message' => 'categoria de producto actualizada',
-            'Categoria de producto' => $catProducto,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'categoría de producto actualizada',
+            'code' => 200,
+            'data' => $catProducto,
         ];
 
         return response()->json($data, 200);
@@ -422,8 +465,10 @@ class catproducto_Controller extends Controller
 
         if (!$catProducto) {
             $data = [
-                'message' => 'Categoria no encontrada',
-                'status' => 404
+                'status' => 'error',
+                'message' => 'Categoría no encontrada',
+                'code' => 404,
+                'data' => null
             ];
 
             return response()->json($data, 404);
@@ -436,9 +481,10 @@ class catproducto_Controller extends Controller
 
         if ($validar -> fails()) {
             $data = [
+                'status' => 'error',
                 'message' => 'Error en la base de datos',
-                'Error' => $validar->errors(),
-                'status' => 400
+                'code' => 400,
+                'data' => $validar->errors()
             ];
 
             return response()->json($data, 400);
@@ -455,9 +501,10 @@ class catproducto_Controller extends Controller
         $catProducto->save();
 
         $data = [
-            'message' => 'categoria de producto actualizada',
-            'Categoria de producto' => $catProducto,
-            'status' => 200
+            'status' => 'success',
+            'message' => 'categoría de producto actualizada',
+            'code' => 200,
+            'data' => $catProducto
         ];
 
         return response()->json($data, 200);

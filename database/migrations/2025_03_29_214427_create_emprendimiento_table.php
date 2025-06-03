@@ -19,12 +19,13 @@ return new class extends Migration
             $table->string('marca', 255)->nullable(); 
             $table->text('descripcion')->nullable(); 
             $table->char('estado', 2)->default('A'); 
-            $table->unsignedBigInteger('id_usuario'); 
+            $table->string('id_usuario'); 
             $table->timestamp('fecha_inscripcion')->default(DB::raw('CURRENT_TIMESTAMP'));
 
             // Claves foráneas sin cascada
             $table->foreign('id_cat')->references('id_cat')->on('categoria_emprendimiento');
-            $table->foreign('id_usuario')->references('id')->on('usuario');
+            $table->foreign('id_usuario')->references('identificacion')->on('usuario');
+            $table->unique('id_usuario', 'unique_id_usuario');
         });
 
         DB::statement("ALTER TABLE emprendimiento ADD CONSTRAINT chk_estado CHECK (estado IN ('A', 'IN'));");
